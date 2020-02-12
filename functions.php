@@ -142,8 +142,46 @@ $decode_data = json_decode($json);
 	}
 }
 
+function folderExists($name, $token) {
+	//Function Stub
+	//return boolean
+}
 
+function makeFolder($name, $token) {
+	//Function Stub
+	//Return folder ID
+}
 
+function getCriteriaID($name, $token) {
+	//Function Stub
+	//return ID
+}
+
+function addCriteriaToDisplayUnit($displayUnitID, $criteriaID, $token) {
+	//Function Stub
+	//return boolean
+}
+
+function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token) {
+	//Function Stub
+	//return boolean
+}
+
+function renamePlayer($newNameID, $playerID, $token) {
+	//Function Stub
+	//return boolean
+}
+
+function movePlayer($newFolderID, $playerID, $token) {
+	//Function Stub
+	//return boolean
+}
+
+function assignCriteriaToDisplayUnit($displayUnitID, $side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $token) {
+	//Function Stub
+	//use getCriteriaID 
+	//return boolean
+}
 
 
 ?>
