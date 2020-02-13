@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>OFM Broadsign Deployment</title>
+  </head>
+  <body>
+
+	<div class="jumbotron text-center">
+		<h1 style="color:#660099;"><b>OUTFRONT</b> Media</h1>
+		<p>Rail Deployment</p> 
+	</div>
+
+
+
+	<div class="container-fluid" id="mainDiv">
+	
+		<table bgcolor="d3d3d3" border="2" style="col-sm-6" display="inline-block">
+			<thead>
+				<tr>
+					<th colspan="8">
+						<div class="row">
+						<div class="col-sm-4">
+							<p><b>Player ID:</b></p> 
+							</div>
+							<div class="col-sm-4">
+							<p>
+								<select name="Player_ID" id="IDSelect" onchange="setPlayerID()">
+								<option value="" disabled selected hidden>Select ID</option>
+								<option value="260689719">260689719</option>
+								<option value="455668123">455668123</option>
+								<option value="12455789">12455789</option>
+								<option value="189223488">189223488</option>
+								<option value="260689719">260689719</option>
+								<option value="455668123">455668123</option>
+								<option value="12455789">12455789</option>
+								<option value="189223488">189223488</option>
+								<option value="260689719">260689719</option>
+								<option value="455668123">455668123</option>
+								<option value="12455789">12455789</option>
+								<option value="189223488">189223488</option>
+								<option value="260689719">260689719</option>
+								<option value="455668123">455668123</option>
+								<option value="12455789">12455789</option>
+								<option value="189223488">189223488</option>
+								</select>
+							</p> 
+							</div>
+							</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						Train #
+					</td>
+					<td>
+						Car #
+					</td>
+					<td>
+						Screen Type
+					</td>
+					<td>
+						Location
+					</td>
+					<td class="d-none d-md-table-cell">
+						Side
+					</td>
+					<td class="d-none d-md-table-cell">
+						Group #
+					</td>
+					<td class="d-none d-md-table-cell">
+						HW Sku
+					</td>
+					<td class="d-none d-md-table-cell">
+						Serial #
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Table hidden until medium device size is reached -->
+		<table bgcolor="d3d3d3" border="2" style="col-sm-6" class="d-md-none">
+		    <thead>
+				<tr>
+					<th colspan="8">
+						<div class="row">
+						<div class="col-sm-4">
+							<p><b>Player ID:</b></p> 
+							</div>
+								<div class="col-sm-4" id="secondID">
+								Temp ID
+								</div>
+							</div>
+					</th>
+				</tr>
+		    </thead>
+		    <tbody>
+				<tr>
+					<td class="d-md-none">
+						Side
+					</td>
+					<td class="d-md-none">
+						Group #
+					</td>
+					<td class="d-md-none">
+						HW Sku
+					</td>
+					<td class="d-md-none">
+						Serial #
+					</td>
+				</tr>
+		    </tbody>
+		</table>
+		
+	</div>
+
+    <!-- Optional JavaScript -->
+    <script src="Multiple.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>OFM Broadsign Deployment</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <script src="form.js"></script>
+</head>
+<body>
+
+<form name="login" method="post" action="rail.php">
+
+<div class="jumbotron text-center">
+  <h1 style="color:#660099;"><b>OUTFRONT</b> Media</h1>
+  <p>Rail Deployment</p> 
+</div>
+
+
+<div class="container">
+    <aside class="col-sm-2">
+        Left
+    </aside>
+    <section class="col-sm-8">
+        Middle
+    </section>
+    <aside class="col-sm-2">
+        Right
+    </aside>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3></h3>
+      <p>
+	
+	<div class="row">
+	<div class="col-sm-5">
+		<p><b>Player ID:</b></p> 
+		</div>
+		<div class="col-sm-4">
+		<p>
+			<select name="Player_ID" id="IDSelect" onchange="enableOptions()">
+			<option value="" disabled selected hidden>Select ID</option>
+			<option value="260689719">260689719</option>
+			<option value="455668123">455668123</option>
+			<option value="12455789">12455789</option>
+			<option value="189223488">189223488</option>
+			<option value="260689719">260689719</option>
+			<option value="455668123">455668123</option>
+			<option value="12455789">12455789</option>
+			<option value="189223488">189223488</option>
+			<option value="260689719">260689719</option>
+			<option value="455668123">455668123</option>
+			<option value="12455789">12455789</option>
+			<option value="189223488">189223488</option>
+			<option value="260689719">260689719</option>
+			<option value="455668123">455668123</option>
+			<option value="12455789">12455789</option>
+			<option value="189223488">189223488</option>
+			</select>
+		</p> 
+		</div>
+		</div>
+	  </p>
+	  
+	<script>
+	  
+	  
+		var jArray = <?php echo json_encode($ar); ?>;
+	  
+		var select = document.getElementById("IDSelect"); 
+		//var options = ["1", "2", "3", "4", "5"]; 
+		var options = jArray;
+
+		for(var i = 0; i < options.length; i++) {
+			var opt = options[i];
+			var el = document.createElement("option");
+			el.textContent = opt;
+			el.value = opt;
+			select.appendChild(el);
+		}
+	  
+	  
+	</script>
+      
+    </div>
+
+    <div class="col-sm-4">
+      <h3></h3>
+      <p>
+	
+	    <div class="row">
+		
+			<div class="col-sm-6">
+				<p>Train Type:</p>
+			
+			</div>
+		
+			<div class="col-sm-2">
+			
+				<select name="Train_Type" id="TrainSelect" disabled>
+				<option value="" disabled selected hidden>...</option>
+				<option value="R211">R211</option>
+				<option value="R62-GE">R62-GE</option>
+				<option value="R62-WH">R62-WH</option>
+				<option value="R62A-WH">R62A-WH</option>
+				<option value="R142A">R142A</option>
+				<option value="R179">R179</option>
+				<option value="R188">R188</option>
+				<option value="R46">R46</option>
+				<option value="R32">R32</option>
+				</select>
+				<br><br>
+			</div>
+		</div>
+
+		<div class="row">
+		
+			<div class="col-sm-6">
+				<p>Train #:</p>
+			
+			</div>
+		
+			<div class="col-sm-2">
+			
+				<select name="Train_Number" id="Train#Select" disabled>
+				<option value="" disabled selected hidden>...</option>
+				<option value="T001">T001</option>
+				<option value="T002">T002</option>
+				<option value="T003">T003</option>
+				<option value="T5299">T5229</option>
+				<option value="T5300">T5300</option>
+				</select>
+				<br><br>
+			</div>
+		</div>
+	  	
+
+
+	<div class="row">
+		<div class="col-sm-6">
+			<p>Car #:</p>
+		</div>
+		
+		<div class="col-sm-2">
+			<select name="Car" id="CarSelect" disabled>
+			<option value="" disabled selected hidden>...</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			</select>
+			<br><br>
+		</div>
+	</div>
+
+	
+	
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<p>Screen Type:</p> 
+		</div>
+		<div class="col-sm-2">
+			<select name="Screen_Type" id="TypeSelect" disabled>
+			<option value="" disabled selected hidden>...</option>
+			<option value="QSM">QSM</option>
+			<option value="MTA_QSM">MTA QSM</option>
+			<option value="Cove">Cove CC48</option>
+			</select>
+			<br><br>
+		</div>
+	</div>
+	
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<p>Location:</p> 
+		</div>
+		<div class="col-sm-2">
+			<select name="Location" id="LocSelect" disabled>
+			<option value="" disabled selected hidden>...</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			</select>
+			<br><br>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<p>Side:</p> 
+		</div>
+		<div class="col-sm-2">
+			<select name="Side" id="SideSelect" disabled>
+			<option value="" disabled selected hidden>...</option>
+			<option value="Left">Left</option>
+			<option value="Right">Right</option>
+			</select>
+			<br><br>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<p>Group #:</p> 
+		</div>
+		<div class="col-sm-2">
+			<select name="GroupNumber" id="GroupSelect" disabled>
+			<option value="" disabled selected hidden>...</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			</select>
+			<br><br>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<p>HW Sku:</p> 
+		</div>
+		<div class="col-sm-2">
+			<select name="HWSku" id="HWSkuSelect" disabled>
+			<option value="" disabled selected hidden>...</option>
+			<option value="QSMi">QSMi</option>
+			<option value="3SMi">3SMi</option>
+			</select>
+			<br><br>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<p>Serial #:</p> 
+		</div>
+		<div class="col-sm-2">
+			<select name="SerialNumber" id="SerialSelect" disabled>
+			<option value="" disabled selected hidden>...</option>
+			<option value="AAAA">AAAA</option>
+			<option value="BBBB">BBBB</option>
+			</select>
+			<br><br>
+		</div>
+	</div>
+	  
+	</p>
+      
+    </div>
+    <div class="col-sm-4">
+      <h3></h3>        
+
+	  <!-- <button type="Submit" onclick="alert('Hello World!')">Submit</button> -->
+	  	<!--<input type="submit" name="submit" value="Submit">
+	  	<br><br>
+	</form>
+	  
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+-->
+<!--
+<?php
+
+	
+	try {
+
+		$json_data = file_get_contents("test_input.json");
+		$decode_data = json_decode($json_data);
+		$arCount = 0;
+		$temp = 0;
+		
+		if (is_array($decode_data->client_registration)){
+			
+			echo $decode_data->client_registration[0]->id;
+
+			foreach($decode_data->client_registration as $key=>$value){
+				//echo "<br>";
+				//echo $value->id;
+				$arCount = $arCount+1;
+			}
+			
+			$ar = array_fill(0, $arCount, $arCount);
+			
+			foreach($decode_data->client_registration as $key=>$value){
+				$ar[$temp] = $value->id;
+				$temp = $temp+1;
+			}
+			return $ar;
+			
+		}
+		
+		else {
+			echo "no array";
+		}
+		
+
+	}
+	
+	catch (Exception $e) {
+		echo 'Caught exception: ',  $e->getMessage(), "\n";
+	}
+
+
+?>
+
+-->

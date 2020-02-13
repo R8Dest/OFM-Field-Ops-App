@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>OFM Broadsign Deployment Login</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="login.js"></script>
+    </head>
+    <center>
+        <div class="jumbotron text-center">
+          <h1 style="color:#660099;"><b>OUTFRONT</b> Media</h1>
+          <p>Login</p> 
+        </div>
+
+        <form action="/Rolling Stock/page_submit.php" method="POST">
+            <label for="username">
+                Username
+                <input type="text" name="username" id="username" required value="Kirk">
+            </label><br><br>
+            <label for="password">
+                Password
+                <input type="password" name="password" id="password" required value="secret">
+            </label><br><br>
+            <input type="submit" value="Submit">
+        </form>
+
+        <div style="Opacity: 0.0" id="warning"><br>
+            <font size="5" color="red">Incorrect password, try again</font>
+        </div>
+
+    </center>
+</html>
+
