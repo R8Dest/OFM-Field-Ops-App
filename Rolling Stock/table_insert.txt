@@ -1,0 +1,102 @@
+<div class="container-fluid" id="mainDiv">
+	
+		<table bgcolor="d3d3d3" border="2" style="col-sm-6" display="inline-block">
+			<thead>
+				<tr>
+					<th colspan="8">
+						<div class="row">
+						<div class="col-sm-4">
+							<p><b>Player ID:</b></p> 
+							</div>
+							<div class="col-sm-4">
+							<p>
+								<select name="Player_ID" id="IDSelect" onchange="setPlayerID()">
+								<option value="" disabled selected hidden>Select ID</option>
+								<option value="260689719">260689719</option>
+								<option value="455668123">455668123</option>
+								<option value="12455789">12455789</option>
+								<option value="189223488">189223488</option>
+								<option value="260689719">260689719</option>
+								<option value="455668123">455668123</option>
+								<option value="12455789">12455789</option>
+								<option value="189223488">189223488</option>
+								<option value="260689719">260689719</option>
+								<option value="455668123">455668123</option>
+								<option value="12455789">12455789</option>
+								<option value="189223488">189223488</option>
+								<option value="260689719">260689719</option>
+								<option value="455668123">455668123</option>
+								<option value="12455789">12455789</option>
+								<option value="189223488">189223488</option>
+								</select>
+							</p> 
+							</div>
+							</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						Train #
+					</td>
+					<td>
+						Car #
+					</td>
+					<td>
+						Screen Type
+					</td>
+					<td>
+						Location
+					</td>
+					<td class="d-none d-md-table-cell">
+						Side
+					</td>
+					<td class="d-none d-md-table-cell">
+						Group #
+					</td>
+					<td class="d-none d-md-table-cell">
+						HW Sku
+					</td>
+					<td class="d-none d-md-table-cell">
+						Serial #
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Table hidden until medium device size is reached -->
+		<table bgcolor="d3d3d3" border="2" style="col-sm-6" class="d-md-none">
+		    <thead>
+				<tr>
+					<th colspan="8">
+						<div class="row">
+						<div class="col-sm-4">
+							<p><b>Player ID:</b></p> 
+							</div>
+								<div class="col-sm-4" id="secondID">
+								Temp ID
+								</div>
+							</div>
+					</th>
+				</tr>
+		    </thead>
+		    <tbody>
+				<tr>
+					<td class="d-md-none">
+						Side
+					</td>
+					<td class="d-md-none">
+						Group #
+					</td>
+					<td class="d-md-none">
+						HW Sku
+					</td>
+					<td class="d-md-none">
+						Serial #
+					</td>
+				</tr>
+		    </tbody>
+		</table>
+		
+	</div>
