@@ -6,28 +6,30 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="login.js"></script>
     </head>
-    <center>
         <div class="jumbotron text-center">
           <h1 style="color:#660099;"><b>OUTFRONT</b> Media</h1>
           <p>Login</p> 
         </div>
+    <body>
+        <div class="col-sm-12">
+        <center>
+            <form action="/Rolling Stock/page_submit.php" method="POST">
+                <label for="username">
+                    Username
+                    <input type="text" name="username" id="username" required value="Kirk">
+                </label><br><br>
+                <label for="password">
+                    Password
+                    <input type="password" name="password" id="password" required value="secret">
+                </label><br><br>
+                <input type="submit" value="Submit">
+            </form>
 
-        <form action="/Rolling Stock/page_submit.php" method="POST">
-            <label for="username">
-                Username
-                <input type="text" name="username" id="username" required value="Kirk">
-            </label><br><br>
-            <label for="password">
-                Password
-                <input type="password" name="password" id="password" required value="secret">
-            </label><br><br>
-            <input type="submit" value="Submit">
-        </form>
-
-        <div style="Opacity: 0.0" id="warning"><br>
-            <font size="5" color="red">Incorrect password, try again</font>
+            <div style="Opacity: 0.0" id="warning"><br>
+                <font size="5" color="red">Incorrect password, try again</font>
+            </div>
+            </center>
         </div>
-
-    </center>
+     </body>
 </html>
 

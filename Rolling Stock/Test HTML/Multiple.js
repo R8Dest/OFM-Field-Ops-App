@@ -109,9 +109,9 @@ function initTABLE()
  '   							<div>  '  + 
  '   								<select name="Screen_Type' + countID + '" id="TypeSelect' + countID + '" >  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
- '   								<option value="QSM">QSM</option>  '  + 
- '   								<option value="MTA_QSM">MTA QSM</option>  '  + 
- '   								<option value="Cove">Cove CC48</option>  '  + 
+ '   								<option value="Square">Square</option>  '  + 
+ '   								<option value="3SM">3SM</option>  '  + 
+ '   								<option value="Cove">Cove</option>  '  + 
  '   								</select>  '  + 
  '   								<br><br>  '  + 
  '   							</div>  '  + 
@@ -135,7 +135,7 @@ function initTABLE()
  '   						</td>  '  + 
  '   						<td class="d-none d-md-table-cell">  '  + 
  '   							<div>  '  + 
- '   								<select name="Side' + countID + '" id="SideSelect' + countID + '" >  '  + 
+ '   								<select name="Side' + countID + '" id="SideSelect' + countID + '" onchange="updateSubValues(' + countID + ')">  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
  '   								<option value="Left">Left</option>  '  + 
  '   								<option value="Right">Right</option>  '  + 
@@ -145,7 +145,7 @@ function initTABLE()
  '   						</td>  '  + 
  '   						<td class="d-none d-md-table-cell">  '  + 
  '   							<div>  '  + 
- '   								<select name="GroupNumber' + countID + '" id="GroupSelect' + countID + '" >  '  + 
+ '   								<select name="GroupNumber' + countID + '" id="GroupSelect' + countID + '" onchange="updateSubValues(' + countID + ')" >  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
  '   								<option value="1">1</option>  '  + 
  '   								<option value="2">2</option>  '  + 
@@ -156,7 +156,7 @@ function initTABLE()
  '   						</td>  '  + 
  '   						<td class="d-none d-md-table-cell">  '  + 
  '   							<div>  '  + 
- '   								<select name="HWSku' + countID + '" id="HWSkuSelect' + countID + '" >  '  + 
+ '   								<select name="HWSku' + countID + '" id="HWSkuSelect' + countID + '" onchange="updateSubValues(' + countID + ')" >  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
  '   								<option value="QSMi">QSMi</option>  '  + 
  '   								<option value="3SMi">3SMi</option>  '  + 
@@ -166,7 +166,7 @@ function initTABLE()
  '   						</td>  '  + 
  '   						<td class="d-none d-md-table-cell">  '  + 
  '   							<div>  '  + 
- '   								<select name="SerialNumber' + countID + '" id="SerialSelect' + countID + '" >  '  + 
+ '   								<select name="SerialNumber' + countID + '" id="SerialSelect' + countID + '" onchange="updateSubValues(' + countID + ')" >  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
  '   								<option value="AAAA">AAAA</option>  '  + 
  '   								<option value="BBBB">BBBB</option>  '  + 
@@ -197,7 +197,7 @@ function initTABLE()
  '   					<tr>  '  + 
  '   						<td class="d-md-none">  '  + 
  '   							<div>  '  + 
- '   								<select name="Side' + countID + '" id="SideSelect' + countID + '" >  '  + 
+ '   								<select name="Side' + countID + '" id="SubSideSelect' + countID + '" onchange="updateMainValues(' + countID + ')" >  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
  '   								<option value="Left">Left</option>  '  + 
  '   								<option value="Right">Right</option>  '  + 
@@ -207,7 +207,7 @@ function initTABLE()
  '   						</td>  '  + 
  '   						<td class="d-md-none">  '  + 
  '   							<div>  '  + 
- '   								<select name="GroupNumber' + countID + '" id="GroupSelect' + countID + '" >  '  + 
+ '   								<select name="GroupNumber' + countID + '" id="SubGroupSelect' + countID + '" onchange="updateMainValues(' + countID + ')" >  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
  '   								<option value="1">1</option>  '  + 
  '   								<option value="2">2</option>  '  + 
@@ -218,7 +218,7 @@ function initTABLE()
  '   						</td>  '  + 
  '   						<td class="d-md-none">  '  + 
  '   							<div>  '  + 
- '   								<select name="HWSku' + countID + '" id="HWSkuSelect' + countID + '" >  '  + 
+ '   								<select name="HWSku' + countID + '" id="SubHWSkuSelect' + countID + '" onchange="updateMainValues(' + countID + ')" >  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
  '   								<option value="QSMi">QSMi</option>  '  + 
  '   								<option value="3SMi">3SMi</option>  '  + 
@@ -228,7 +228,7 @@ function initTABLE()
  '   						</td>  '  + 
  '   						<td class="d-md-none">  '  + 
  '   							<div>  '  + 
- '   								<select name="SerialNumber' + countID + '" id="SerialSelect' + countID + '" >  '  + 
+ '   								<select name="SerialNumber' + countID + '" id="SubSerialSelect' + countID + '" onchange="updateMainValues(' + countID + ')" >  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
  '   								<option value="AAAA">AAAA</option>  '  + 
  '   								<option value="BBBB">BBBB</option>  '  + 
@@ -250,21 +250,76 @@ function selectTrainType()
   countID = 1;
   switch($("#TrainSelect option:checked").val())
   {
+    
     case "R211":
       generateTables(15);
-      break;
+      break;    
+    case "R62":
+      //4 square
+      $("#mainDiv").append('<div class="jumbotron text-center">' +
+		'<h1 style="color:#660099;"><b>SQUARES</b></h1>' +
+       '</div>');
+      generateTables(4);
+      //First 4 are square screens
+      for(i = 1; i <= 4; i++)
+      {
+        $("#TypeSelect" + i).val("Square");
+      }
+
+      $("#SideSelect1").val("Left");
+      $("#GroupSelect1").val("1");
+      $("#LocSelect1").val("1");
+
+      $("#SideSelect2").val("Left");
+      $("#GroupSelect2").val("1");
+      $("#LocSelect2").val("2");
+
+      $("#SideSelect3").val("Right");
+      $("#GroupSelect3").val("2");
+      $("#LocSelect3").val("1");
+
+      $("#SideSelect4").val("Right");
+      $("#GroupSelect4").val("2");
+      $("#LocSelect4").val("2");
+      
+      break;    
+    case "R62A":
+      generateTables(15);
+      break;    
+    case "R68":
+      generateTables(15);
+      break;    
+    case "R142":
+      generateTables(15);
+      break;    
+    case "R142A":
+      generateTables(15);
+      break;    
+    case "R143":
+      generateTables(15);
+      break;    
+    case "R160":
+      generateTables(15);
+      break;    
+    case "R188":
+      generateTables(15);
+      break;  
+    case "R179":
+      generateTables(15);
+      break;     
+
+
   }
 
 }
 
 function generateTables(num)
 {
-  if(num > 0)
+  for(i = 0; i < num; i++)
   {
     initTABLE();
     $("#mainDiv").append(TABLE);
     countID++;
-    generateTables(num-1);
   }
 }
 
@@ -281,4 +336,20 @@ function enableOptions() {
   document.getElementById("GroupSelect").disabled = false;
   document.getElementById("HWSkuSelect").disabled = false;
   document.getElementById("SerialSelect").disabled = false;*/
+}
+
+//BUG: submits duplicate values in the POST when the form is submitted
+function updateSubValues(tableNum)
+{
+    document.getElementById("SubSideSelect" + tableNum).selectedIndex = document.getElementById("SideSelect" + tableNum).selectedIndex;
+    document.getElementById("SubGroupSelect" + tableNum).selectedIndex = document.getElementById("GroupSelect" + tableNum).selectedIndex;
+    document.getElementById("SubHWSkuSelect" + tableNum).selectedIndex = document.getElementById("HWSkuSelect" + tableNum).selectedIndex;
+    document.getElementById("SubSerialSelect" + tableNum).selectedIndex = document.getElementById("SerialSelect" + tableNum).selectedIndex;
+}
+function updateMainValues(tableNum)
+{
+  document.getElementById("SideSelect" + tableNum).selectedIndex = document.getElementById("SubSideSelect" + tableNum).selectedIndex;
+  document.getElementById("GroupSelect" + tableNum).selectedIndex = document.getElementById("SubGroupSelect" + tableNum).selectedIndex;
+  document.getElementById("HWSkuSelect" + tableNum).selectedIndex = document.getElementById("SubHWSkuSelect" + tableNum).selectedIndex;
+  document.getElementById("SerialSelect" + tableNum).selectedIndex = document.getElementById("SubSerialSelect" + tableNum).selectedIndex;
 }
