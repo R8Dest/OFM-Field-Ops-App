@@ -21,7 +21,7 @@
 	</div>
     
     <form method="get" action="/rail.php">
-		<div class="container-fluid" id="trainSelectDiv">
+		<div class="container-fluid" id="prelimSelectDiv">
 			<div class="row">
 
 				<div class="col-sm-6">
@@ -31,22 +31,88 @@
 
 				<div class="col-sm-2">
 
-					<select name="Train_Type" id="TrainSelect" onchange="selectTrainType()">
+					<select name="Train_Type" id="TrainSelect">
 					<option value="" disabled selected hidden>...</option>
 					<option value="R211">R211</option>
-					<option value="R62-GE">R62-GE</option>
-					<option value="R62-WH">R62-WH</option>
-					<option value="R62A-WH">R62A-WH</option>
+					<option value="R62">R62</option>
+					<option value="R62A">R62A</option>
+					<option value="R68">R68</option>
+					<option value="R68A">R68A</option>
+					<option value="R142">R142</option>
 					<option value="R142A">R142A</option>
-					<option value="R179">R179</option>
+					<option value="R143">R143</option>
+					<option value="R160">R160</option>
 					<option value="R188">R188</option>
-					<option value="R46">R46</option>
-					<option value="R32">R32</option>
+					<option value="R179">R179</option>
 					</select>
 					<br><br>
 				</div>
 			</div>
+			<div class="row">
+
+				<div class="col-sm-6">
+					<p>Branded?:</p>
+
+				</div>
+
+				<div class="col-sm-2">
+
+					<select name="BrandedSelect" id="BrandedSelect">
+						<option value="" disabled selected hidden>...</option>
+						<option value="true">Yes</option>
+						<option value="false">No</option>
+					</select>
+					<br><br>
+				</div>
+			</div>
+			<div class="row">
+
+				<div class="col-sm-6">
+					<p>Train Number:</p>
+
+				</div>
+
+				<div class="col-sm-2">
+
+					<select name="Train_Number" id="Train#Select">
+						<option value="" disabled selected hidden>...</option>
+						<option value="T001">T001</option>
+						<option value="T002">T002</option>
+						<option value="T003">T003</option>
+						<option value="T5299">T5229</option>
+						<option value="T5300">T5300</option>
+					</select>
+					<br><br>
+				</div>
+			</div>
+			
+			<div class="row">
+
+				<div class="col-sm-6">
+					<p>Car Number:</p>
+
+				</div>
+
+				<div class="col-sm-2">
+
+					<select name="CarSelect" id="CarSelect">
+						<option value="" disabled selected hidden>...</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+					</select>
+					<br><br>
+				</div>
+			</div>
+			<button type="button" class="col-sm-6" onclick="selectTrainType()">Generate Tables</button>
 		</div>
+
 
 		<hr noshade></hr>
 
@@ -154,9 +220,9 @@
 							<div>
 								<select name="Screen_Type" id="TypeSelect" disabled>
 								<option value="" disabled selected hidden>...</option>
-								<option value="QSM">QSM</option>
-								<option value="MTA_QSM">MTA QSM</option>
-								<option value="Cove">Cove CC48</option>
+								<option value="Square">Square</option>
+								<option value="3SM">3SM</option>
+								<option value="Cove">Cove</option>
 								</select>
 								<br><br>
 							</div>
