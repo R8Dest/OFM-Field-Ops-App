@@ -1,0 +1,295 @@
+$(document).ready(start);
+
+function start() {
+    $("#mainDiv").hide();
+
+}
+var countID;
+var TABLE;
+function initTABLE()
+{
+  TABLE =   '   <table border="2">  '  + 
+ '   				<thead>  '  + 
+ '   					<tr>  '  + 
+ '   						<th colspan="4">  '  + 
+ '   							<div class="row>  '  + 
+ '                                <div">' +
+ '   									<p style="white-space:nowrap;"><b>Player ' + countID + ' ID:</b></p>   '  + 
+ '                                </div>' +
+ '                                <div>' +
+ '   									<p>  '  + 
+ '   										<select name="Player_ID' + countID + '" id="IDSelect' + countID + '" onchange="enableOptions()">  '  + 
+ '   										<option value="" disabled selected hidden>Select ID</option>  '  + 
+ '   										<option value="260689719">260689719</option>  '  + 
+ '   										<option value="455668123">455668123</option>  '  + 
+ '   										<option value="12455789">12455789</option>  '  + 
+ '   										<option value="189223488">189223488</option>  '  + 
+ '   										<option value="260689719">260689719</option>  '  + 
+ '   										<option value="455668123">455668123</option>  '  + 
+ '   										<option value="12455789">12455789</option>  '  + 
+ '   										<option value="189223488">189223488</option>  '  + 
+ '   										<option value="260689719">260689719</option>  '  + 
+ '   										<option value="455668123">455668123</option>  '  + 
+ '   										<option value="12455789">12455789</option>  '  + 
+ '   										<option value="189223488">189223488</option>  '  + 
+ '   										<option value="260689719">260689719</option>  '  + 
+ '   										<option value="455668123">455668123</option>  '  + 
+ '   										<option value="12455789">12455789</option>  '  + 
+ '   										<option value="189223488">189223488</option>  '  + 
+ '   										</select>  '  + 
+ '   									</p>   '  + 
+  '                                </div>' +
+ '   							</div>  '  + 
+ '   						</th>  '  + 
+ '   					</tr>  '  + 
+ '   				</thead>  '  + 
+ '     '  + 
+ '   				<!--Titles for each column-->  '  + 
+ '   				<tbody>  '  + 
+ '   					<tr>  '  + 
+ '   						<td>  '  + 
+ '   							Screen Type  '  + 
+ '   						</td>  '  + 
+ '   						<td>  '  + 
+ '   							Location  '  + 
+ '   						</td>  '  + 
+ '   						<td>  '  + 
+ '   							Side  '  + 
+ '   						</td>  '  + 
+ '   						<td>  '  + 
+ '   							Group #  '  + 
+ '   						</td>  '  + 
+ '   					</tr>  '  + 
+ '     '  + 
+ '   					<!--Selections for each column-->  '  + 
+ '   					<tr>  '  + 
+ '   						<td>  '  + 
+ '   							<div>  '  + 
+ '   								<select name="Screen_Type' + countID + '" id="TypeSelect' + countID + '" >  '  + 
+ '   								<option value="" disabled selected hidden>...</option>  '  + 
+ '   								<option value="Square">Square</option>  '  + 
+ '   								<option value="3SM">3SM</option>  '  + 
+ '   								<option value="Cove">Cove</option>  '  + 
+ '   								</select>  '  + 
+ '   								<br><br>  '  + 
+ '   							</div>  '  + 
+ '   						</td>  '  + 
+ '   						<td>  '  + 
+ '   							<div>  '  + 
+ '   								<select name="Location' + countID + '" id="LocSelect' + countID + '" >  '  + 
+ '   								<option value="" disabled selected hidden>...</option>  '  + 
+ '   								<option value="1">1</option>  '  + 
+ '   								<option value="2">2</option>  '  + 
+ '   								<option value="3">3</option>  '  + 
+ '   								<option value="4">4</option>  '  + 
+ '   								<option value="5">5</option>  '  + 
+ '   								<option value="6">6</option>  '  + 
+ '   								<option value="7">7</option>  '  + 
+ '   								<option value="8">8</option>  '  + 
+ '   								<option value="9">9</option>  '  + 
+ '   								</select>  '  + 
+ '   								<br><br>  '  + 
+ '   							</div>  '  + 
+ '   						</td>  '  + 
+ '   						<td>  '  + 
+ '   							<div>  '  + 
+ '   								<select name="Side' + countID + '" id="SideSelect' + countID + '">  '  + 
+ '   								<option value="" disabled selected hidden>...</option>  '  + 
+ '   								<option value="Left">Left</option>  '  + 
+ '   								<option value="Right">Right</option>  '  + 
+ '   								</select>  '  + 
+ '   								<br><br>  '  + 
+ '   							</div>  '  + 
+ '   						</td>  '  + 
+ '   						<td>  '  + 
+ '   							<div>  '  + 
+ '   								<select name="GroupNumber' + countID + '" id="GroupSelect' + countID + '">  '  + 
+ '   								<option value="" disabled selected hidden>...</option>  '  + 
+ '   								<option value="1">1</option>  '  + 
+ '   								<option value="2">2</option>  '  + 
+ '   								<option value="3">3</option>  '  + 
+ '   								</select>  '  + 
+ '   								<br><br>  '  + 
+ '   							</div>  '  + 
+ '   						</td>  '  + 
+ '   					</tr>  '  + 
+ '   				</tbody>  '  + 
+ '   			</table>  ';
+}
+
+
+function submitTrainInfo()
+{
+  if(trainTypeFormIsValid())
+  {
+    alert("Please fill in all required data");
+  }
+  else
+  {
+    $("#mainDiv").show();
+    $("#mainDiv").html("");
+    countID = 1;
+    $("#mainDiv").append('<div class="jumbotron text-center">' +
+      '<h1 style="color:#660099;"><b>SQUARES</b></h1>' +
+     '</div>');
+
+    generateTables(4);
+    //All cars except 142 (A) have 4 square screens
+    if($("#TrainSelect").val() == "R142 (A)")
+    {
+      for(i = 1; i <= 3; i++)
+      {
+        $("#TypeSelect" + i).val("Square");
+      }
+
+      $("#SideSelect1").val("Left");
+      $("#GroupSelect1").val("1");
+      $("#LocSelect1").val("1");
+
+      $("#SideSelect2").val("Left");
+      $("#GroupSelect2").val("1");
+      $("#LocSelect2").val("2");
+
+      $("#SideSelect3").val("Right");
+      $("#GroupSelect3").val("2");
+      $("#LocSelect3").val("1");
+    }
+    else
+    {
+      for(i = 1; i <= 4; i++)
+      {
+        $("#TypeSelect" + i).val("Square");
+      }
+
+      $("#SideSelect1").val("Left");
+      $("#GroupSelect1").val("1");
+      $("#LocSelect1").val("1");
+
+      $("#SideSelect2").val("Left");
+      $("#GroupSelect2").val("1");
+      $("#LocSelect2").val("2");
+
+      $("#SideSelect3").val("Right");
+      $("#GroupSelect3").val("2");
+      $("#LocSelect3").val("1");
+
+      $("#SideSelect4").val("Right");
+      $("#GroupSelect4").val("2");
+      $("#LocSelect4").val("2");
+    }
+    
+    //If the car is branded then there are cove screens as well
+    if($("#BrandedSelect").val() == "true")
+    {
+      $("#mainDiv").append('<div class="jumbotron text-center">' +
+        '<h1 style="color:#660099;"><b>COVES</b></h1>' +
+       '</div>');
+
+       
+    }
+  }
+}
+
+function generateTables(num)
+{
+  for(i = 0; i < num; i++)
+  {
+    initTABLE();
+    $("#mainDiv").append(TABLE);
+    countID++;
+  }
+}
+
+function trainTypeSelect()
+{
+  switch($("#TrainSelect option:checked").val())
+  {
+    
+  
+    case "R62 (A & B)":
+      disableBranded("false");
+      break;    
+    case "R62A (A & B)":
+      disableBranded("false");
+      break;    
+    case "R68 (A & B)":
+      disableBranded("false");
+      break;
+    case "R68 (B)":
+      disableBranded("true");
+      break;
+    case "R68A (A & B)":
+      disableBranded("false");
+      break;
+    case "R68A (B)":
+      disableBranded("true");
+      break;
+    case "R142 (A)":
+      disableBranded("false");
+      break;    
+    case "R142 (B)":
+      enableBranded();
+      break;
+    case "R142A (A)":
+      disableBranded("false");
+      break;    
+    case "R142A (B)":
+      enableBranded();
+      break;
+    case "R143 (B)":
+      enableBranded();
+      break;    
+    case "R160 (A)":
+      enableBranded();
+      break;    
+    case "R160 (B)":
+      disableBranded("false");
+      break;
+    case "R188 (A)":
+      disableBranded("false");
+      break;  
+    case "R188 (B & C)":
+      enableBranded();
+      break;
+    case "R179 (A)":
+      disableBranded("false");
+      break;     
+    case "R179 (B)":
+      disableBranded("false");
+      break;
+    case "R211":
+      disableBranded("true");
+      break;  
+    default:
+
+  }
+}
+
+function disableBranded(isBranded)
+{
+  $("#BrandedSelect").val(isBranded);
+  $("#BrandedSelect").prop("disabled", true);
+}
+function enableBranded()
+{
+  $("#BrandedSelect").val("");
+  $("#BrandedSelect").prop("disabled", false);
+}
+
+function trainTypeFormIsValid()
+{
+  var type, branded, trainNumber, carNumber;
+  type = $("#TrainSelect").val();
+  branded = $("#BrandedSelect").val();
+  trainNumber = $("#TrainNumberSelect").val();
+  carNumber = $("#CarSelect").val();
+
+  if(type == null || branded == null || trainNumber == null || carNumber == null)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}

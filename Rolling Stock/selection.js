@@ -13,13 +13,13 @@ function start() {
 function GenerateHTMLIndividual()
 {
     //generate HTML
-    window.location.href = "\Test HTML/Individual.html";
+    window.location.href = "\Player Registration/Individual.html";
 }
 
 function GenerateHTMLMultiple()
 {
     //generate HTML
-    window.location.href = "\Test HTML/Multiple.html";
+    window.location.href = "\Player Registration/Multiple.html";
     //$("#mainDiv").HTML("Test");
 
 }

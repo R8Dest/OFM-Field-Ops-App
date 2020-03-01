@@ -1,0 +1,12 @@
+td {
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-right:15px;
+    padding-left:15px;
+}
+table{
+  width: 396px;
+  height: 244px;
+  background-color: lightgray;
+  display: inline-block;
+}
