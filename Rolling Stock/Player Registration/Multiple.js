@@ -120,7 +120,7 @@ function initTABLE()
 
 function submitTrainInfo()
 {
-  if(trainTypeFormIsValid())
+  if(!trainTypeFormIsValid())
   {
     alert("Please fill in all required data");
   }
@@ -179,13 +179,115 @@ function submitTrainInfo()
     }
     
     //If the car is branded then there are cove screens as well
+    //either 10, 12, or 15 screens depending on the trainType
     if($("#BrandedSelect").val() == "true")
     {
       $("#mainDiv").append('<div class="jumbotron text-center">' +
         '<h1 style="color:#660099;"><b>COVES</b></h1>' +
        '</div>');
 
-       
+      var trainType = $("#TrainSelect").val(); 
+
+      //locCount is used to count the players in a group rather than
+      //trying to find the location number using i
+      var locCount = 1;
+
+      //12 coves for R68 B and R68A B
+      if(trainType == "R68 (B)" || trainType == "R68A (B)")
+      {
+        generateTables(12);
+        
+        //A little magic numbery but i starts at 5 so it won't start
+        //overwriting the first 4 square screens
+        for(i = 5; i <= 16; i++)
+        {
+          if(i <= 10)
+          {
+            $("#TypeSelect" + i).val("Cove");
+            $("#SideSelect" + i).val("Left");
+            $("#GroupSelect" + i).val("1");
+            $("#LocSelect" + i).val(locCount);
+            if(i == 10)
+              locCount = 1;
+            else
+              locCount++;
+          }
+          else
+          {
+            $("#TypeSelect" + i).val("Cove");
+            $("#SideSelect" + i).val("Right");
+            $("#GroupSelect" + i).val("2");
+            $("#LocSelect" + i).val(locCount);
+            locCount++;
+          }
+        }
+      }
+      else if(trainType == "R160 (A)")
+      {
+        generateTables(15);
+        for(i = 5; i <= 19; i++)
+        {
+          if(i <= 9)
+          {
+            $("#TypeSelect" + i).val("Cove");
+            $("#SideSelect" + i).val("Left");
+            $("#GroupSelect" + i).val("1");
+            $("#LocSelect" + i).val(locCount);
+
+            if(i == 9)
+              locCount = 1;
+            else
+              locCount++;
+          }
+          else if(i <= 14)
+          {
+            $("#TypeSelect" + i).val("Cove");
+            $("#SideSelect" + i).val("Left");
+            $("#GroupSelect" + i).val("2");
+            $("#LocSelect" + i).val(locCount);
+
+            if(i == 14)
+              locCount = 1;
+            else
+              locCount++;
+          }
+          else
+          {
+            $("#TypeSelect" + i).val("Cove");
+            $("#SideSelect" + i).val("Right");
+            $("#GroupSelect" + i).val("3");
+            $("#LocSelect" + i).val(locCount);
+            locCount++;
+          }
+        }
+      }
+      else
+      {
+        generateTables(10);
+        for(i = 5; i <= 14; i++)
+        {
+          if(i <= 9)
+          {
+            $("#TypeSelect" + i).val("Cove");
+            $("#SideSelect" + i).val("Left");
+            $("#GroupSelect" + i).val("1");
+            $("#LocSelect" + i).val(locCount);
+
+            if(i == 9)
+              locCount = 1;
+            else
+              locCount++;
+          }
+          else
+          {
+            $("#TypeSelect" + i).val("Cove");
+            $("#SideSelect" + i).val("Right");
+            $("#GroupSelect" + i).val("2");
+            $("#LocSelect" + i).val(locCount);
+            locCount++;
+          }
+        }
+      }
     }
   }
 }
@@ -286,10 +388,10 @@ function trainTypeFormIsValid()
 
   if(type == null || branded == null || trainNumber == null || carNumber == null)
   {
-    return true;
+    return false;
   }
   else
   {
-    return false;
+    return true;
   }
 }
