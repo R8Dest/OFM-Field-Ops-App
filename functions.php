@@ -22,7 +22,6 @@ $ch = curl_init();
 		return $result;
 }
 
-
 function getPlayerJson($token, $domainID, $containerID) {
 
 $ch = curl_init();
@@ -64,7 +63,6 @@ $ch = curl_init();
 		curl_close($ch);		
 		return $result;
 }
-
 
 function getDisplayUnitNameFromJson($json, $displayUnitID) {
 
@@ -447,6 +445,45 @@ function movePlayer($newFolderID, $playerID, $token) {
 	//echo $result;
 }
 
+function postDisplayUnit($token, $domainID, $containerID, $displayUnitTypeID) {
+
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/display_unit/v12/add');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POST, true);
+
+	$post_fields = array(
+		'address' => '',
+		'bmb_host_id' => 0,
+		'container_id' => $containerID,
+		'display_unit_type_id' => $displayUnitTypeID,
+		'domain_id' => $domainID,
+		'enforce_day_parts' => false,
+		'enforce_screen_controls' => false,
+		'geolocation' => '(0,0)',
+		'name' => '[Train#]-[Model]-[Car#]-[Side]-[ScreenType]-[Group#]-[Location]'
+	);
+
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
+
+	$headers = array(
+		'Accept: application/json',
+		'Authorization: Bearer '.$token
+		//'Content-Type: application/json'
+	);
+	
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	$result = curl_exec($ch);
+
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);		
+	return $result;
+}
+
 function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $domainID, $token) {
 	//Function Stub
 	//use getCriteriaID 
@@ -471,6 +508,140 @@ function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $grou
 
 	
 }
+
+function getLoopPolicyIDbyScreenType($screenType, $domainID, $token){
+	//Function Stub, will give valid response.
+	return 270852457;
+	
+}
+
+function getFrame($displayUnitID, $domainID, $token){
+	//get Day_Part list, filter by parentID (display unit)
+	//get skin list, filter by parentID (day_part)
+	//return matching skin
+	//return json
+	
+	
+	$dayPartID;
+	
+	
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/day_part/v5?domain_id='.$domainID);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Authorization: Bearer '.$token;
+		
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	$result = curl_exec($ch);
+
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);
+	
+	$decode_data = json_decode($result);
+	if (is_array($decode_data->day_part)){
+			
+		foreach($decode_data->day_part as $key=>$value){
+			if ($value->parent_id == $displayUnitID){
+				$dayPartID = $value->id;
+				break;
+			}
+		}
+	}
+	
+	
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/skin/v7?domain_id='.$domainID);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Authorization: Bearer '.$token;
+		
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	$result = curl_exec($ch);
+
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);
+	
+	$decode_data = json_decode($result);
+	if (is_array($decode_data->skin)){
+			
+		foreach($decode_data->skin as $key=>$value){
+			if ($value->parent_id == $dayPartID){
+				return $value;
+			}
+		}
+	}
+	
+	echo "Failed to find Frame json";
+	return 0;
+	
+	
+}
+
+function addLoopPolicyToDisplayUnit($displayUnitID, $screenType, $domainID, $token){
+
+	$loopPolicyID = getLoopPolicyIDbyScreenType($screenType, $domainID, $token);
+	$frameJson = getFrame($displayUnitID, $domainID, $token);
+	
+	
+	
+	//update skin using /skin/v7
+	
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/skin/v7');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "
+	{ 
+		\"active\": ".$frameJson->active .", 
+		\"domain_id\": ".$frameJson->domain_id .", 
+		\"geometry_type\": \"".$frameJson->geometry_type ."\", 
+		\"height\": ".$frameJson->height .", 
+		\"id\": ".$frameJson->id .", 
+		\"interactivity_timeout\": ".$frameJson->interactivity_timeout .", 
+		\"interactivity_trigger_id\": \"".$frameJson->interactivity_trigger_id ."\", 
+		\"loop_policy_id\": ".$loopPolicyID .", 
+		\"name\": \"".$frameJson->name ."\", 
+		\"parent_id\": ".$frameJson->parent_id .", 
+		\"screen_no\": \"".$frameJson->screen_no ."\", 
+		\"width\": \"".$frameJson->width ."\", 
+		\"x\": \"".$frameJson->x ."\", 
+		\"y\": ".$frameJson->y .",
+		\"z\": ".$frameJson->z ."
+	}");
+	
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Authorization: Bearer '.$token;
+	$headers[] = 'Content-Type: application/json';
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	
+
+	$result = curl_exec($ch);
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+		return 0;
+	}
+	curl_close($ch);
+	
+	//echo $result;
+	return 1;
+	
+	
+}
+
+
 
 
 ?>
