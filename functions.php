@@ -444,13 +444,32 @@ function movePlayer($newFolderID, $playerID, $token) {
 	}
 	curl_close($ch);
 	
-	echo $result;
+	//echo $result;
 }
 
-function assignCriteriaToDisplayUnit($displayUnitID, $side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $token) {
+function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $domainID, $token) {
 	//Function Stub
 	//use getCriteriaID 
 	//return boolean
+	
+	//Slow and ugly... should just get criteria JSON and send that....
+	$sideCriteria = getCriteriaID($side, $token, $domainID);
+	$locationCriteria = getCriteriaID($location, $token, $domainID);
+	$groupNumberCriteria = getCriteriaID($groupNumber, $token, $domainID);
+	$carNumberCriteria = getCriteriaID($carNumber, $token, $domainID);
+	$trainNumberCriteria = getCriteriaID($trainNumber, $token, $domainID);
+	$screenTypeCriteria = getCriteriaID($screenType, $token, $domainID);
+	$trainTypeCriteria = getCriteriaID($trainType, $token, $domainID);
+	
+	addCriteriaToDisplayUnit($displayUnitID, $sideCriteria, $token, $domainID);
+	addCriteriaToDisplayUnit($displayUnitID, $locationCriteria, $token, $domainID);
+	addCriteriaToDisplayUnit($displayUnitID, $groupNumberCriteria, $token, $domainID);
+	addCriteriaToDisplayUnit($displayUnitID, $carNumberCriteria, $token, $domainID);
+	addCriteriaToDisplayUnit($displayUnitID, $trainNumberCriteria, $token, $domainID);
+	addCriteriaToDisplayUnit($displayUnitID, $screenTypeCriteria, $token, $domainID);
+	addCriteriaToDisplayUnit($displayUnitID, $trainTypeCriteria, $token, $domainID);
+
+	
 }
 
 
