@@ -390,6 +390,7 @@ function renamePlayer($newName, $playerID, $token) {
 }
 
 function movePlayer($newFolderID, $playerID, $token) {
+
 	$playerJson = getPlayerJson($token, 0, 0);
 	$player;
 	
@@ -437,9 +438,11 @@ function movePlayer($newFolderID, $playerID, $token) {
 	
 
 	$result = curl_exec($ch);
+
 	if (curl_errno($ch)) {
 		echo 'Error:' . curl_error($ch);
 	}
+
 	curl_close($ch);
 	
 	//echo $result;
@@ -453,19 +456,18 @@ function postDisplayUnit($token, $domainID, $containerID, $displayUnitTypeID) {
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_POST, true);
 
-	$post_fields = array(
-		'address' => '',
-		'bmb_host_id' => 0,
-		'container_id' => $containerID,
-		'display_unit_type_id' => $displayUnitTypeID,
-		'domain_id' => $domainID,
-		'enforce_day_parts' => false,
-		'enforce_screen_controls' => false,
-		'geolocation' => '(0,0)',
-		'name' => '[Train#]-[Model]-[Car#]-[Side]-[ScreenType]-[Group#]-[Location]'
-	);
-
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "
+	{ 
+		\"address\": \"\",
+        \"bmb_host_id\": 0,
+        \"container_id\": $containerID,
+        \"display_unit_type_id\": $displayUnitTypeID,
+        \"domain_id\": $domainID,
+        \"enforce_day_parts\": false,
+        \"enforce_screen_controls\": false,
+        \"geolocation\": \"(0,0)\",
+        \"name\": $name
+	}");
 
 	$headers = array(
 		'Accept: application/json',
@@ -543,10 +545,10 @@ function getFrame($displayUnitID, $domainID, $token){
 	curl_close($ch);
 	
 	$decode_data = json_decode($result);
-	if (is_array($decode_data->day_part)){
+	if (is_array($decode_data->day_part)) {
 			
-		foreach($decode_data->day_part as $key=>$value){
-			if ($value->parent_id == $displayUnitID){
+		foreach($decode_data->day_part as $key=>$value) {
+			if ($value->parent_id == $displayUnitID) {
 				$dayPartID = $value->id;
 				break;
 			}
@@ -569,6 +571,7 @@ function getFrame($displayUnitID, $domainID, $token){
 	if (curl_errno($ch)) {
 		echo 'Error:' . curl_error($ch);
 	}
+
 	curl_close($ch);
 	
 	$decode_data = json_decode($result);
@@ -591,8 +594,6 @@ function addLoopPolicyToDisplayUnit($displayUnitID, $screenType, $domainID, $tok
 
 	$loopPolicyID = getLoopPolicyIDbyScreenType($screenType, $domainID, $token);
 	$frameJson = getFrame($displayUnitID, $domainID, $token);
-	
-	
 	
 	//update skin using /skin/v7
 	
@@ -640,7 +641,6 @@ function addLoopPolicyToDisplayUnit($displayUnitID, $screenType, $domainID, $tok
 	
 	
 }
-
 
 
 
