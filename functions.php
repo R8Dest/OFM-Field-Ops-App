@@ -487,34 +487,30 @@ function postDisplayUnit($token, $domainID, $containerID, $displayUnitTypeID) {
 }
 
 function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $domainID, $token) {
-	//Function Stub
-	//use getCriteriaID 
-	//return boolean
-	
 	//Slow and ugly... should just get criteria JSON and send that....
+	
 	$sideCriteria = getCriteriaID($side, $token, $domainID);
 	$locationCriteria = getCriteriaID($location, $token, $domainID);
 	$groupNumberCriteria = getCriteriaID($groupNumber, $token, $domainID);
-	$carNumberCriteria = getCriteriaID($carNumber, $token, $domainID);
-	$trainNumberCriteria = getCriteriaID($trainNumber, $token, $domainID);
+	//$carNumberCriteria = getCriteriaID($carNumber, $token, $domainID);
+	//$trainNumberCriteria = getCriteriaID($trainNumber, $token, $domainID);
 	$screenTypeCriteria = getCriteriaID($screenType, $token, $domainID);
-	$trainTypeCriteria = getCriteriaID($trainType, $token, $domainID);
+	//$trainTypeCriteria = getCriteriaID($trainType, $token, $domainID);
 	
 	addCriteriaToDisplayUnit($displayUnitID, $sideCriteria, $token, $domainID);
 	addCriteriaToDisplayUnit($displayUnitID, $locationCriteria, $token, $domainID);
 	addCriteriaToDisplayUnit($displayUnitID, $groupNumberCriteria, $token, $domainID);
-	addCriteriaToDisplayUnit($displayUnitID, $carNumberCriteria, $token, $domainID);
-	addCriteriaToDisplayUnit($displayUnitID, $trainNumberCriteria, $token, $domainID);
+	//addCriteriaToDisplayUnit($displayUnitID, $carNumberCriteria, $token, $domainID);
+	//addCriteriaToDisplayUnit($displayUnitID, $trainNumberCriteria, $token, $domainID);
 	addCriteriaToDisplayUnit($displayUnitID, $screenTypeCriteria, $token, $domainID);
-	addCriteriaToDisplayUnit($displayUnitID, $trainTypeCriteria, $token, $domainID);
+	//addCriteriaToDisplayUnit($displayUnitID, $trainTypeCriteria, $token, $domainID);
 
 	
 }
 
-function getLoopPolicyIDbyScreenType($screenType, $domainID, $token){
+function getLoopPolicyIDbyName($loopPolicyName, $domainID, $token){
 	//Function Stub, will give valid response.
 	return 270852457;
-	
 }
 
 function getFrame($displayUnitID, $domainID, $token){
@@ -545,10 +541,10 @@ function getFrame($displayUnitID, $domainID, $token){
 	curl_close($ch);
 	
 	$decode_data = json_decode($result);
-	if (is_array($decode_data->day_part)) {
+	if (is_array($decode_data->day_part)){
 			
-		foreach($decode_data->day_part as $key=>$value) {
-			if ($value->parent_id == $displayUnitID) {
+		foreach($decode_data->day_part as $key=>$value){
+			if ($value->parent_id == $displayUnitID){
 				$dayPartID = $value->id;
 				break;
 			}
@@ -590,9 +586,9 @@ function getFrame($displayUnitID, $domainID, $token){
 	
 }
 
-function addLoopPolicyToDisplayUnit($displayUnitID, $screenType, $domainID, $token){
+function addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, $token){
 
-	$loopPolicyID = getLoopPolicyIDbyScreenType($screenType, $domainID, $token);
+	$loopPolicyID = getLoopPolicyIDbyName($loopPolicyName, $domainID, $token);
 	$frameJson = getFrame($displayUnitID, $domainID, $token);
 	
 	//update skin using /skin/v7
@@ -642,6 +638,155 @@ function addLoopPolicyToDisplayUnit($displayUnitID, $screenType, $domainID, $tok
 	
 }
 
+//STUB
+function getDisplayTypeIDByName($displayUnitType, $token, $domainID){
+	//Function Stub, will give valid response.
+	return 268552897;
+}
+
+function getDisplayUnitIDByName($displayUnitName, $token, $domainID){
+	$duJson = getDisplayUnitJson ($token, $domainID, 0);
+	return getDisplayUnitIDFromJson($duJson, $displayUnitName);
+}
+
+function getPlayerNameByID($playerID, $domainID, $token){
+	$playerJson = getPlayerJson ($token, $domainID, 0);
+	return getPlayerNameFromJson($playerJson, $playerID);
+}
+
+//Do everything test function
+function schfiftyFive($side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $agency, $playerID){
+	
+	$domainID = 0;
+	$token = 0;
+	$displayUnitType = "PerformanceTesting-Test_Display_Type-1920x1080-NonEnforced";
+	$sideCriteria = "left";
+	$locationCriteria = "01";
+	$groupNumberCriteria = "01";
+	$carNumberCriteria = 0;
+	$trainNumberCriteria = 0;
+	$screenTypeCriteria = "cove";
+	$trainTypeCriteria = 0;
+	$loopPolicyName = "default loop policy";
+	
+	//JSON CONFIG FILE
+	$config_json = file_get_contents("fieldops_config.json");
+	$config_josn_decoded = json_decode($config_json);
+	
+	$config = $config_josn_decoded->fieldops_config;
+	
+	//echo json_decode($config_josn_decoded->fieldops_config[0]);
+	
+	$criteria_translation_table = $config_josn_decoded->criteria_translation_table;
+	$criteria_translation_table_Location02 = $config_josn_decoded->criteria_translation_table_location2;
+	$criteria_translation_table_Location05 = $config_josn_decoded->criteria_translation_table_location5;
+	$displaytype_translation_table = $config_josn_decoded->displaytype_translation_table;
+	
+	//Get Domain ID and Token from JSON
+	$domainID = $config->domain_id;
+	$token = $config->token;
+	
+	//Find Criteria Names
+	//Side
+		if (strcasecmp($side,"left")==0){
+			$sideCriteria = $criteria_translation_table->side_left;
+		}
+		else if (strcasecmp($side,"right") == 0){
+			$sideCriteria = $criteria_translation_table->side_right;
+		}
+	//groupNumber
+		if (strcasecmp($groupNumber,"01")==0){
+			$groupNumberCriteria = $criteria_translation_table->group_01;
+		}
+		else if (strcasecmp($groupNumber,"02") == 0){
+			$groupNumberCriteria = $criteria_translation_table->group_02;
+		}
+		else if (strcasecmp($groupNumber,"03") == 0){
+			$groupNumberCriteria = $criteria_translation_table->group_03;
+		}
+		else if (strcasecmp($groupNumber,"04") == 0){
+			$groupNumberCriteria = $criteria_translation_table->group_04;
+		}
+	//screenType, display type, loop policy
+		if (strcasecmp($screenType,"cove")==0){
+			$screenTypeCriteria = $criteria_translation_table->cove;
+			$displayUnitType = $displaytype_translation_table->cove;
+			$loopPolicyName = $config->loop_policy_cove;
+		}
+		else if (strcasecmp($screenType,"square") == 0){
+			$screenTypeCriteria = $criteria_translation_table->square;
+			$displayUnitType = $displaytype_translation_table->square;
+			$loopPolicyName = $config->loop_policy_square;
+		}
+		else if (strcasecmp($screenType,"3sm") == 0){
+			$screenTypeCriteria = $criteria_translation_table->threesm;
+			$displayUnitType = $displaytype_translation_table->threesm;
+			$loopPolicyName = $config->loop_policy_3sm;
+		}
+		//Testing display unit type
+			if (domainID == 0 || domainID == 259890691){
+					$displayUnitType = $displaytype_translation_table->testing;
+					$loopPolicyName = $config->loop_policy_testing;
+			}
+	//screenLocation
+		if (strcasecmp($groupNumber,"01")==0 && strcasecmp($screenType, "square") == 0){
+			$locationCriteria = $criteria_translation_table_Location02->one;
+		}
+		else if (strcasecmp($groupNumber,"02") == 0 && strcasecmp($screenType, "square") == 0){
+			$locationCriteria = $criteria_translation_table_Location02->two;
+		}
+		else if (strcasecmp($groupNumber,"01") == 0){
+			$locationCriteria = $criteria_translation_table_Location05->one;
+		}
+		else if (strcasecmp($groupNumber,"02") == 0){
+			$locationCriteria = $criteria_translation_table_Location05->two;
+		}
+		else if (strcasecmp($groupNumber,"03") == 0){
+			$locationCriteria = $criteria_translation_table_Location05->three;
+		}
+		else if (strcasecmp($groupNumber,"04") == 0){
+			$locationCriteria = $criteria_translation_table_Location05->four;
+		}
+		else if (strcasecmp($groupNumber,"05") == 0){
+			$locationCriteria = $criteria_translation_table_Location05->five;
+		}
+	
+	
+	
+	
+	$playerName = getPlayerNameByID($playerID, $domainID, $token);
+	$displayUnitTypeID = getDisplayTypeIDByName($displayUnitType, $token, $domainID);
+	$displayUnitName = "".$trainNumber."-".$trainType."-".$carNumber."-".$side."-".$screenType."-".$groupNumber."-".$location;
+	$displayUnitID = getDisplayUnitIDByName($displayUnitName, $token, $domainID);
+	
+	//Does Display Unit Exist?
+	if ($displayUnitID == 0){
+		//find DU container
+		$duContainer = folderExists($trainNumber, $token, $domainID);
+		if ($duContainer == 0){
+			$agencyContainerID = folderExists($agency, $token, $domainID);
+			if ($agencyContainerID == 0){
+				$agencyContainerID = makeFolder($agency, 0, $token, $domainID);
+			}
+			$duContainer = makeFolder($trainNumber, $parentID, $token, $domainID);
+		}
+		
+		//Make Display Unit
+		$displayUnitID = postDisplayUnit($token, $domainID, $duContainer, $displayUnitTypeID);
+		addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, $token);
+		assignFullCriteriaToDisplayUnit($displayUnitID, $sideCriteria, $locationCriteria, $groupNumberCriteria, $carNumberCriteria, $trainNumberCriteria, $screenTypeCriteria, $trainTypeCriteria, $domainID, $token);
+	}
+	
+	//Assign Display Unit to Player
+	assignPlayerToDisplayUnit($displayUnitID, $playerID, $token);
+	
+	//Move Player to production folder
+	
+	//Rename Player
+	
+	
+	
+}
 
 
 ?>
