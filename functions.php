@@ -948,7 +948,7 @@ function schfiftyFive($side, $location, $groupNumber, $carNumber, $trainNumber, 
 		}
 		
 		//Make Display Unit
-		$displayUnitID = postDisplayUnit($token, $domainID, $duContainerID, $displayUnitTypeID);
+		$displayUnitID = postDisplayUnit($token, $displayUnitName, $domainID, $duContainerID, $displayUnitTypeID);
 		addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, $token);
 		assignFullCriteriaToDisplayUnit($displayUnitID, $sideCriteria, $locationCriteria, $groupNumberCriteria, $carNumberCriteria, $trainNumberCriteria, $screenTypeCriteria, $trainTypeCriteria, $domainID, $token);
 	}
