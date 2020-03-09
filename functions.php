@@ -79,7 +79,7 @@ $decode_data = json_decode($json);
 				}
 			}
 		
-		return "NULL";
+		return 0;
 	}
 }
 
@@ -98,7 +98,7 @@ function getDisplayUnitIDFromJson($json, $name) {
 			}
 		}
 		
-		return "NULL";
+		return 0;
 	}
 }
 
@@ -278,7 +278,8 @@ function addCriteriaToDisplayUnit($displayUnitID, $criteriaID, $token, $domainID
 
 function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token) {
 	$playerJson = getPlayerJson($token, 0, 0);
-	$player;
+	$player = 0;
+	$trigger = 0;
 	
 	$decode_data = json_decode($playerJson);
 	if (is_array($decode_data->host)){
@@ -286,11 +287,16 @@ function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token) {
 		foreach($decode_data->host as $key=>$value){
 			if ($value->id == $playerID){
 				$player = $value;
+				$trigger = 1;
 				break;
 			}
 		}
 	}
 	
+	if ($trigger == 0){
+		echo "Error: Unable to assign Player to Display Unit, no such player ID found for player ID: ".$playerID;
+		return 0;
+	}
 	
 	$ch = curl_init();
 
@@ -365,7 +371,7 @@ function renamePlayer($newName, $playerID, $token) {
 		\"domain_id\": ".$player->domain_id .", 
 		\"geolocation\": \"".$player->geolocation ."\", 
 		\"id\": ".$player->id .", 
-		\"name\": \"".$newName ."\", 
+		\"name\": \"".$player->name ."-".$newName ."\", 
 		\"nscreens\": ".$player->nscreens .", 
 		\"public_key_fingerprint\": \"".$player->public_key_fingerprint ."\", 
 		\"remote_clear_db_tm_utc\": \"".$player->remote_clear_db_tm_utc ."\", 
@@ -448,7 +454,7 @@ function movePlayer($newFolderID, $playerID, $token) {
 	//echo $result;
 }
 
-function postDisplayUnit($token, $domainID, $containerID, $displayUnitTypeID, $name) {
+function postDisplayUnit($token, $name, $domainID, $containerID, $displayUnitTypeID) {
 
 	$ch = curl_init();
 
@@ -466,7 +472,7 @@ function postDisplayUnit($token, $domainID, $containerID, $displayUnitTypeID, $n
         \"enforce_day_parts\": false,
         \"enforce_screen_controls\": false,
         \"geolocation\": \"(0,0)\",
-        \"name\": $name
+        \"name\": \"$name\"
 	}");
 
 	$headers = array(
@@ -513,6 +519,133 @@ function getLoopPolicyIDbyName($loopPolicyName, $domainID, $token){
 	return 270852457;
 }
 
+function createDayPart($displayUnitID, $domainID, $token){
+	//return 364223831;
+	
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/day_part/v5/add');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "{ 
+		\"day_mask\": 127, 
+		\"domain_id\": $domainID, 
+		\"end_date\": \"8000-12-31\", 
+		\"end_time\": \"00:00:00\", 
+		\"impressions_per_hour\": -1, 
+		\"name\": \"default\", 
+		\"parent_id\": $displayUnitID, 
+		\"start_date\": \"1756-01-01\", 
+		\"start_time\": \"00:00:00\", 
+		\"virtual_end_date\": \"8000-12-31\", 
+		\"virtual_start_date\": \"1756-01-01\", 
+		\"weight\": 0
+	}");
+
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Authorization: Bearer '.$token;
+	$headers[] = 'Content-Type: application/json';
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	$result = curl_exec($ch);
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);
+	
+	$decode_data = json_decode($result);
+	
+
+	
+	//echo var_dump($decode_data);
+	
+
+	
+	
+	
+	$arCount = 0;
+	$temp = 0;
+	$value = 0;
+			
+	if (is_array($decode_data->day_part)){
+		foreach($decode_data->day_part as $key=>$value){
+			try {
+					//echo $value->id;
+					return $value->id;
+			}
+			catch(Exception $e){
+				
+			}
+		}
+			return 0;
+		}
+	return 0;
+
+	
+	
+	
+}
+
+//STUB ->Needs loop policy ID
+function createFrame($dayPartID, $domainID, $token){
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/skin/v7/add');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "
+	{ 
+	\"domain_id\": $domainID, 
+	\"geometry_type\": 1, 
+	\"height\": 100, 
+	\"interactivity_timeout\": 0, 
+	\"interactivity_trigger_id\": 0, 
+	\"loop_policy_id\": 295177093, 
+	\"name\": \"Fullscreen\", 
+	\"parent_id\": $dayPartID, 
+	\"screen_no\": 1, 
+	\"width\": 100, 
+	\"x\": 0, 
+	\"y\": 0, 
+	\"z\": 0
+	}");
+
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Authorization: Bearer '.$token;
+	$headers[] = 'Content-Type: application/json';
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	$result = curl_exec($ch);
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);
+	
+	
+	$decode_data = json_decode($result);
+
+	//echo var_dump($decode_data);
+	$value = 0;
+			
+	if (is_array($decode_data->skin)){
+		foreach($decode_data->skin as $key=>$value){
+			try {
+					return $value->id;
+			}
+			catch(Exception $e){
+				
+			}
+		}
+			return 0;
+		}
+	return 0;
+	
+	
+	
+}
+
 function getFrame($displayUnitID, $domainID, $token){
 	//get Day_Part list, filter by parentID (display unit)
 	//get skin list, filter by parentID (day_part)
@@ -520,7 +653,11 @@ function getFrame($displayUnitID, $domainID, $token){
 	//return json
 	
 	
-	$dayPartID;
+	//echo "DU ID for Frame: ".$displayUnitID;
+	
+	
+	$dayPartID = 0;
+	$trigger = 0;
 	
 	
 	$ch = curl_init();
@@ -544,52 +681,91 @@ function getFrame($displayUnitID, $domainID, $token){
 	if (is_array($decode_data->day_part)){
 			
 		foreach($decode_data->day_part as $key=>$value){
+			//echo "$value ";
 			if ($value->parent_id == $displayUnitID){
 				$dayPartID = $value->id;
+				$trigger = 1;
 				break;
 			}
 		}
 	}
 	
-	
-	$ch = curl_init();
-
-	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/skin/v7?domain_id='.$domainID);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-	$headers = array();
-	$headers[] = 'Accept: application/json';
-	$headers[] = 'Authorization: Bearer '.$token;
+	if($trigger == 0){
+		//echo "unable to find dayPartID for display unit: ".$displayUnitID;
+		$dayPartID = createDayPart($displayUnitID, $domainID, $token);
 		
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	$result = curl_exec($ch);
+		//Create Frame
+		createFrame($dayPartID, $domainID, $token);
 
-	if (curl_errno($ch)) {
-		echo 'Error:' . curl_error($ch);
 	}
-
-	curl_close($ch);
 	
-	$decode_data = json_decode($result);
-	if (is_array($decode_data->skin)){
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/skin/v7?domain_id='.$domainID);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		$headers = array();
+		$headers[] = 'Accept: application/json';
+		$headers[] = 'Authorization: Bearer '.$token;
 			
-		foreach($decode_data->skin as $key=>$value){
-			if ($value->parent_id == $dayPartID){
-				return $value;
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		$result = curl_exec($ch);
+
+		if (curl_errno($ch)) {
+			echo 'Error:' . curl_error($ch);
+		}
+
+		curl_close($ch);
+		
+		$decode_data = json_decode($result);
+		if (is_array($decode_data->skin)){
+				
+			foreach($decode_data->skin as $key=>$value){
+				
+				
+				if ($value->parent_id == $dayPartID){
+					return $value;
+				}
 			}
 		}
-	}
-	
 	echo "Failed to find Frame json";
 	return 0;
 	
 	
 }
 
+function pushRequest($playerID, $domainID, $token){
+	
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/host/v16/push_request');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "{ \"domain_id\": ".$domainID.", \"player_id\": ".$playerID.", \"request_json\": \"string\"}");
+
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Content-Type: application/json';
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	$result = curl_exec($ch);
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);
+	
+}
+
 function addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, $token){
 
 	$loopPolicyID = getLoopPolicyIDbyName($loopPolicyName, $domainID, $token);
+	
+	//echo "DU ID for loop Policy: $displayUnitID";
+	
 	$frameJson = getFrame($displayUnitID, $domainID, $token);
+	
+	echo var_dump($frameJson);
+	
 	
 	//update skin using /skin/v7
 	
@@ -762,17 +938,17 @@ function schfiftyFive($side, $location, $groupNumber, $carNumber, $trainNumber, 
 	//Does Display Unit Exist?
 	if ($displayUnitID == 0){
 		//find DU container
-		$duContainer = folderExists($trainNumber, $token, $domainID);
-		if ($duContainer == 0){
+		$duContainerID = folderExists($trainNumber, $token, $domainID);
+		if ($duContainerID == 0){
 			$agencyContainerID = folderExists($agency, $token, $domainID);
 			if ($agencyContainerID == 0){
 				$agencyContainerID = makeFolder($agency, 0, $token, $domainID);
 			}
-			$duContainer = makeFolder($trainNumber, $parentID, $token, $domainID);
+			$duContainerID = makeFolder($trainNumber, $parentID, $token, $domainID);
 		}
 		
 		//Make Display Unit
-		$displayUnitID = postDisplayUnit($token, $domainID, $duContainer, $displayUnitTypeID, $displayUnitName);
+		$displayUnitID = postDisplayUnit($token, $domainID, $duContainerID, $displayUnitTypeID);
 		addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, $token);
 		assignFullCriteriaToDisplayUnit($displayUnitID, $sideCriteria, $locationCriteria, $groupNumberCriteria, $carNumberCriteria, $trainNumberCriteria, $screenTypeCriteria, $trainTypeCriteria, $domainID, $token);
 	}
@@ -781,12 +957,167 @@ function schfiftyFive($side, $location, $groupNumber, $carNumber, $trainNumber, 
 	assignPlayerToDisplayUnit($displayUnitID, $playerID, $token);
 	
 	//Move Player to production folder
+		//Odd logic here, no parent id for player continer vs. DU container?
+		$playerContainerID = folderExists($agency, $token, $domainID);
+		if ($playerContainerID == 0){
+				$agencyContainerID = folderExists($agency, $token, $domainID);
+				if ($agencyContainerID == 0){
+					$agencyContainerID = makeFolder($agency, 0, $token, $domainID);
+				}
+				$playerContainerID = makeFolder($trainNumber, $parentID, $token, $domainID);
+		}
+		movePlayer($playerContainerID, $playerID, $token);
 	
 	//Rename Player
+	renamePlayer($displayUnitName, $playerID, $token);
+	
+	
+}
+
+
+
+function apiDemo($side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $agency, $playerID){
+	//Ideally many of the fields in this function will be read in via JSON. however for testing purposes, this function has them hard-coded. 
+	
+	$domainID = 0;
+	$token = 0;
+	$displayUnitType = "PerformanceTesting-Test_Display_Type-1920x1080-NonEnforced";
+	$sideCriteria = "left";
+	$locationCriteria = "01";
+	$groupNumberCriteria = "01";
+	$carNumberCriteria = 0;
+	$trainNumberCriteria = 0;
+	$screenTypeCriteria = "cove";
+	$trainTypeCriteria = 0;
+	$loopPolicyName = "default loop policy";
+	
+	
+	//Get Domain ID and Token from JSON
+	$domainID = 259890691;
+	$token = "b7f241acb072f484f0a79ea9889d1d03";
+		
+	//Find Criteria Names
+	//Side
+		if (strcasecmp($side,"left")==0){
+			$sideCriteria = "Side_Left";
+		}
+		else if (strcasecmp($side,"right") == 0){
+			$sideCriteria = "Side_Right";
+		}
+	//groupNumber
+		if (strcasecmp($groupNumber,"01")==0){
+			$groupNumberCriteria = "Group_01";
+		}
+		else if (strcasecmp($groupNumber,"02") == 0){
+			$groupNumberCriteria = "Group_02";
+		}
+		else if (strcasecmp($groupNumber,"03") == 0){
+			$groupNumberCriteria = "Group_03";
+		}
+		else if (strcasecmp($groupNumber,"04") == 0){
+			$groupNumberCriteria = "Group_04";
+		}
+	//screenType, display type, loop policy
+		if (strcasecmp($screenType,"cove")==0){
+			$screenTypeCriteria = "Screen_Type_Cove";
+		}
+		else if (strcasecmp($screenType,"square") == 0){
+			$screenTypeCriteria = "Screen_Type_Square";
+		}
+		else if (strcasecmp($screenType,"3sm") == 0){
+			$screenTypeCriteria = "Screen_Type_3SM";
+		}
+		//Testing display unit type
+			if ($domainID == 0 || $domainID == 259890691){
+					$displayUnitType = "PerformanceTesting-Test_Display_Type-1920x1080-NonEnforced";
+					$loopPolicyName = "default loop policy";
+			}
+	//screenLocation
+		if (strcasecmp($groupNumber,"01")==0 && strcasecmp($screenType, "square") == 0){
+			$locationCriteria = "2_Array_01";
+		}
+		else if (strcasecmp($groupNumber,"02") == 0 && strcasecmp($screenType, "square") == 0){
+			$locationCriteria = "2_Array_02";
+		}
+		else if (strcasecmp($groupNumber,"01") == 0){
+			$locationCriteria = "5_Array_01";
+		}
+		else if (strcasecmp($groupNumber,"02") == 0){
+			$locationCriteria = "5_Array_02";
+		}
+		else if (strcasecmp($groupNumber,"03") == 0){
+			$locationCriteria = "5_Array_03";
+		}
+		else if (strcasecmp($groupNumber,"04") == 0){
+			$locationCriteria = "5_Array_04";
+		}
+		else if (strcasecmp($groupNumber,"05") == 0){
+			$locationCriteria = "5_Array_05";
+		}
+	
+	$playerName = getPlayerNameByID($playerID, $domainID, $token);
+	$displayUnitTypeID = getDisplayTypeIDByName($displayUnitType, $token, $domainID);
+	
+	//echo $displayUnitTypeID;
+	
+	$displayUnitName = "".$trainNumber."-".$trainType."-".$carNumber."-".$side."-".$screenType."-".$groupNumber."-".$location;
+	$displayUnitID = getDisplayUnitIDByName($displayUnitName, $token, $domainID);
+	
+	//Does Display Unit Exist?
+	if ($displayUnitID == 0){
+		//find DU container
+		/*
+		$duContainerID = folderExists($trainNumber, $token, $domainID);
+		if ($duContainerID == 0){
+			$agencyContainerID = folderExists($agency, $token, $domainID);
+			if ($agencyContainerID == 0){
+				$agencyContainerID = makeFolder($agency, 0, $token, $domainID);
+			}
+			$duContainerID = makeFolder($trainNumber, $agencyContainerID, $token, $domainID);
+		}
+		*/
+		
+		$duContainerID = 364223845;
+		
+		//Make Display Unit
+		$displayUnitID = postDisplayUnit($token, $displayUnitName ,$domainID, $duContainerID, $displayUnitTypeID);
+		$displayUnitID = getDisplayUnitIDByName($displayUnitName, $token, $domainID);
+
+		addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, $token);
+		assignFullCriteriaToDisplayUnit($displayUnitID, $sideCriteria, $locationCriteria, $groupNumberCriteria, $carNumberCriteria, $trainNumberCriteria, $screenTypeCriteria, $trainTypeCriteria, $domainID, $token);
+	}
+	
+	
+	
+	//Assign Display Unit to Player
+	assignPlayerToDisplayUnit($displayUnitID, $playerID, $token);
+	
+	//Move Player to production folder
+		//Odd logic here, no parent id for player continer vs. DU container?
+		$playerContainerID = folderExists($agency, $token, $domainID);
+		if ($playerContainerID == 0){
+				$agencyContainerID = folderExists($agency, $token, $domainID);
+				if ($agencyContainerID == 0){
+					$agencyContainerID = makeFolder($agency, 0, $token, $domainID);
+				}
+				$playerContainerID = makeFolder($trainNumber, 364220699, $token, $domainID);
+		}
+		movePlayer($playerContainerID, $playerID, $token);
+	
+	//Rename Player
+	
+	renamePlayer($displayUnitName, $playerID, $token);
+	
+	//push changes to Player
+	
+	pushRequest($playerID, $domainID, $token);
 	
 	
 	
 }
+
+
+
 
 
 ?>
