@@ -448,7 +448,7 @@ function movePlayer($newFolderID, $playerID, $token) {
 	//echo $result;
 }
 
-function postDisplayUnit($token, $domainID, $containerID, $displayUnitTypeID) {
+function postDisplayUnit($token, $domainID, $containerID, $displayUnitTypeID, $name) {
 
 	$ch = curl_init();
 
