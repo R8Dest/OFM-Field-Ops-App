@@ -182,12 +182,12 @@ function makeFolder($name, $parentID, $token, $type, $domainID) {
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, 
 	"{ 
-		\"container_id\": 0, 
+		\"container_id\": ".$parentID.", 
 		\"domain_id\": ".$domainID .", 
 		\"group_id\": $type, 
 		\"name\": \"".$name."\",
-		\"parent_id\": ".$parentID.",
-		\"parent_resource_type\": \"string\"
+		\"parent_id\": 0,
+		\"parent_resource_type\": \"container\"
 	}");
 
 	$headers = array();
