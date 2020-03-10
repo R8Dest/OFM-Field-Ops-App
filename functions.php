@@ -174,7 +174,7 @@ function folderExists($name, $token, $domainID) {
 		return 0;
 }
 
-function makeFolder($name, $parentID, $token, $domainID) {
+function makeFolder($name, $parentID, $token, $type, $domainID) {
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/container/v9/add');
@@ -184,7 +184,7 @@ function makeFolder($name, $parentID, $token, $domainID) {
 	"{ 
 		\"container_id\": 0, 
 		\"domain_id\": ".$domainID .", 
-		\"group_id\": 0, 
+		\"group_id\": $type, 
 		\"name\": \"".$name."\",
 		\"parent_id\": ".$parentID.",
 		\"parent_resource_type\": \"string\"
@@ -746,6 +746,7 @@ function pushRequest($playerID, $domainID, $token){
 	$headers = array();
 	$headers[] = 'Accept: application/json';
 	$headers[] = 'Content-Type: application/json';
+	$headers[] = 'Authorization: Bearer '.$token;
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 	$result = curl_exec($ch);
@@ -942,13 +943,13 @@ function schfiftyFive($side, $location, $groupNumber, $carNumber, $trainNumber, 
 		if ($duContainerID == 0){
 			$agencyContainerID = folderExists($agency, $token, $domainID);
 			if ($agencyContainerID == 0){
-				$agencyContainerID = makeFolder($agency, 0, $token, $domainID);
+				$agencyContainerID = makeFolder($agency, 0, $token, 8, $domainID);
 			}
-			$duContainerID = makeFolder($trainNumber, $parentID, $token, $domainID);
+			$duContainerID = makeFolder($trainNumber, $parentID, $token, 8, $domainID);
 		}
 		
 		//Make Display Unit
-		$displayUnitID = postDisplayUnit($token, $displayUnitName, $domainID, $duContainerID, $displayUnitTypeID);
+		$displayUnitID = postDisplayUnit($token, $domainID, $duContainerID, $displayUnitTypeID);
 		addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, $token);
 		assignFullCriteriaToDisplayUnit($displayUnitID, $sideCriteria, $locationCriteria, $groupNumberCriteria, $carNumberCriteria, $trainNumberCriteria, $screenTypeCriteria, $trainTypeCriteria, $domainID, $token);
 	}
@@ -962,9 +963,9 @@ function schfiftyFive($side, $location, $groupNumber, $carNumber, $trainNumber, 
 		if ($playerContainerID == 0){
 				$agencyContainerID = folderExists($agency, $token, $domainID);
 				if ($agencyContainerID == 0){
-					$agencyContainerID = makeFolder($agency, 0, $token, $domainID);
+					$agencyContainerID = makeFolder($agency, 0, $token, 2, $domainID);
 				}
-				$playerContainerID = makeFolder($trainNumber, $parentID, $token, $domainID);
+				$playerContainerID = makeFolder($trainNumber, $parentID, $token, 2, $domainID);
 		}
 		movePlayer($playerContainerID, $playerID, $token);
 	
@@ -1071,12 +1072,13 @@ function apiDemo($side, $location, $groupNumber, $carNumber, $trainNumber, $scre
 		if ($duContainerID == 0){
 			$agencyContainerID = folderExists($agency, $token, $domainID);
 			if ($agencyContainerID == 0){
-				$agencyContainerID = makeFolder($agency, 0, $token, $domainID);
+				$agencyContainerID = makeFolder($agency, 0, $token,  8,$domainID);
 			}
-			$duContainerID = makeFolder($trainNumber, $agencyContainerID, $token, $domainID);
+			$duContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 8, $domainID);
 		}
 		*/
 		
+		//Testing Container
 		$duContainerID = 364223845;
 		
 		//Make Display Unit
@@ -1098,9 +1100,9 @@ function apiDemo($side, $location, $groupNumber, $carNumber, $trainNumber, $scre
 		if ($playerContainerID == 0){
 				$agencyContainerID = folderExists($agency, $token, $domainID);
 				if ($agencyContainerID == 0){
-					$agencyContainerID = makeFolder($agency, 0, $token, $domainID);
+					$agencyContainerID = makeFolder($agency, 0, $token,  2, $domainID);
 				}
-				$playerContainerID = makeFolder($trainNumber, 364220699, $token, $domainID);
+				$playerContainerID = makeFolder($trainNumber, 364220699, $token,  2,$domainID);
 		}
 		movePlayer($playerContainerID, $playerID, $token);
 	
