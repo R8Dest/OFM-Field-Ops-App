@@ -848,20 +848,28 @@ function schfiftyFive($side, $location, $groupNumber, $carNumber, $trainNumber, 
 	
 	//JSON CONFIG FILE
 	$config_json = file_get_contents("fieldops_config.json");
-	$config_josn_decoded = json_decode($config_json);
-	
-	$config = $config_josn_decoded->fieldops_config;
-	
-	//echo json_decode($config_josn_decoded->fieldops_config[0]);
-	
-	$criteria_translation_table = $config_josn_decoded->criteria_translation_table;
-	$criteria_translation_table_Location02 = $config_josn_decoded->criteria_translation_table_location2;
-	$criteria_translation_table_Location05 = $config_josn_decoded->criteria_translation_table_location5;
-	$displaytype_translation_table = $config_josn_decoded->displaytype_translation_table;
-	
+
+	//echo $config_json;
+
+	$config_json_decoded = json_decode($config_json);
+
+	//print_r($config_json_decoded);
+
+	$config = $config_json_decoded->fieldops_config;
+
+	//print_r($config);
+
 	//Get Domain ID and Token from JSON
 	$domainID = $config->domain_id;
 	$token = $config->token;
+
+	// echo "\nDomain ID: " . $domainID . "\n";
+	// echo "Token: " . $token . "\n\n";
+
+	$criteria_translation_table = $config_json_decoded->criteria_translation_table;
+	$criteria_translation_table_Location02 = $config_json_decoded->criteria_translation_table_location2;
+	$criteria_translation_table_Location05 = $config_json_decoded->criteria_translation_table_location5;
+	$displaytype_translation_table = $config_json_decoded->displaytype_translation_table;
 	
 	//Find Criteria Names
 	//Side

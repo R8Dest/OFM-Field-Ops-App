@@ -1,16 +1,16 @@
 {
-  "fieldops_config": [
+  "fieldops_config":
     {
       "provisioning_container_id": 283279899,
       "token": "b7f241acb072f484f0a79ea9889d1d03",
       "domain_id": 259890691,
-	  "loop_policy_cove":"Rolling_Stock-Loop_Policy-BackupMaster-SyncSet_256-Cove",
-	  "loop_policy_3sm":"Rolling_Stock-Loop_Policy-BackupMaster-SyncSet_256-3SM",
-	  "loop_policy_square":"Rolling_Stock-Loop_Policy-BackupMaster-SyncSet_256-Square",
-	  "loop_policy_testing":"default loop policy"
-    }
-  ],
-  "criteria_translation_table": [
+      "loop_policy_cove":"Rolling_Stock-Loop_Policy-BackupMaster-SyncSet_256-Cove",
+      "loop_policy_3sm":"Rolling_Stock-Loop_Policy-BackupMaster-SyncSet_256-3SM",
+      "loop_policy_square":"Rolling_Stock-Loop_Policy-BackupMaster-SyncSet_256-Square",
+      "loop_policy_testing":"default loop policy"
+    },
+
+  "criteria_translation_table":
     {
       "group_01": "Group_01",
 	  "group_02": "Group_02",
@@ -19,31 +19,30 @@
 	  "threesm": "Screen_Type_3SM",
 	  "cove": "Screen_Type_Cove",
 	  "square": "Screen_Type_Square"
-    }
-  ],
-  "criteria_translation_table_location2": [
+    },
+    
+  "criteria_translation_table_location2":
     {
       "one": "2_Array_01",
 	  "two": "2_Array_02"
-    }
-  ],
-  "criteria_translation_table_location5": [
+    },
+    
+  "criteria_translation_table_location5":
     {
       "one": "5_Array_01",
 	  "two": "5_Array_02",
 	  "three": "5_Array_03",
 	  "four": "5_Array_04",
 	  "five": "5_Array_05"
-    }
-  ],
-  "displaytype_translation_table": [
+    },
+    
+  "displaytype_translation_table":
     {
       "null": "Provisioning_Display_Type-Non_Enforced",
 	  "threesm": "Rolling_Stock-3SM-3SMi-Videri-9:16-1080x1920-Normal",
 	  "cove": "Rolling_Stock-Cove-CC48SMi-Videri-16:3-3840x720-Normal",
 	  "square": "Rolling_Stock-Square-QSMi-Videri-1:1-1920x1920-Normal",
 	  "testing": "PerformanceTesting-Test_Display_Type-1920x1080-NonEnforced"
-    }
-  ],
+    },
   "not_modified_since": "03-05-20"
 }
