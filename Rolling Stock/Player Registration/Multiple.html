@@ -20,11 +20,11 @@
 		<p>Rail Deployment</p> 
 	</div>
     
-    <form method="post" action="/Rolling Stock/Player Registration/rail.php">
+    <form method="get" action="/Rolling Stock/Player Registration/rail.php">
 		<div class="container-fluid" id="prelimSelectDiv">
 			<div class="row">
 
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 					<p>Train Type:</p>
 
 				</div>
@@ -32,39 +32,39 @@
 				<div class="col-sm-2">
 
 					<select name="Train_Type" id="TrainSelect" onchange="trainTypeSelect()">
-					<option value="" disabled selected hidden>...</option>
-					<option value="R62 (A & B)">R62 (A & B)</option>
-					<option value="R62A (A & B)">R62A (A & B)</option>
-					<option value="R68 (A & B)">R68 (A & B)</option>
-					<option value="R68 (B)">R68 (B)</option>
-					<option value="R68A (A & B)">R68A (A & B)</option>
-					<option value="R68A (B)">R68A (B)</option>
-					<option value="R142 (A)">R142 (A)</option>
-					<option value="R142 (B)">R142 (B)</option>
-					<option value="R142A (A)">R142A (A)</option>
-					<option value="R142A (B)">R142A (B)</option>
-					<option value="R143 (B)">R143 (B)</option>
-					<option value="R160 (A)">R160 (A)</option>
-					<option value="R160 (B)">R160 (B)</option>
-					<option value="R188 (A)">R188 (A)</option>
-					<option value="R188 (B & C)">R188 (B & C)</option>
-					<option value="R179 (A)">R179 (A)</option>
-					<option value="R179 (B)">R179 (B)</option>
-					<option value="R211">R211</option>
+						<option value="" disabled selected hidden>...</option>
+						<option value="R62 (A & B)">R62 (A & B)</option>
+						<option value="R62A (A & B)">R62A (A & B)</option>
+						<option value="R68 (A & B)">R68 (A & B)</option>
+						<option value="R68 (B)">R68 (B)</option>
+						<option value="R68A (A & B)">R68A (A & B)</option>
+						<option value="R68A (B)">R68A (B)</option>
+						<option value="R142 (A)">R142 (A)</option>
+						<option value="R142 (B)">R142 (B)</option>
+						<option value="R142A (A)">R142A (A)</option>
+						<option value="R142A (B)">R142A (B)</option>
+						<option value="R143 (B)">R143 (B)</option>
+						<option value="R160 (A)">R160 (A)</option>
+						<option value="R160 (B)">R160 (B)</option>
+						<option value="R188 (A)">R188 (A)</option>
+						<option value="R188 (B & C)">R188 (B & C)</option>
+						<option value="R179 (A)">R179 (A)</option>
+						<option value="R179 (B)">R179 (B)</option>
+						<option value="R211">R211</option>
 					</select>
 					<br><br>
 				</div>
 			</div>
 			<div class="row">
 
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 					<p>Branded?:</p>
 
 				</div>
 
 				<div class="col-sm-2">
 
-					<select name="BrandedSelect" id="BrandedSelect" disabled>
+					<select name="BrandedSelect" id="BrandedSelect" readyonly>
 						<option value="" disabled selected hidden>...</option>
 						<option value="true">Yes</option>
 						<option value="false">No</option>
@@ -74,7 +74,7 @@
 			</div>
 			<div class="row">
 
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 					<p>Train Number:</p>
 
 				</div>
@@ -95,7 +95,7 @@
 			
 			<div class="row">
 
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 					<p>Car Number:</p>
 
 				</div>
@@ -117,7 +117,7 @@
 					<br><br>
 				</div>
 			</div>
-			<button type="button" class="col-sm-6" onclick="submitTrainInfo()">Generate Tables</button>
+			<button type="button" class="col-sm-4" onclick="submitTrainInfo()">Generate Tables</button>
 		</div>
 
 
@@ -134,7 +134,7 @@
     <!-- Optional JavaScript -->
     <script src="Multiple.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>

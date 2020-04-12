@@ -2,10 +2,12 @@ $(document).ready(start);
 
 function start() {
     $("#mainDiv").hide();
-
 }
+
 var countID;
+var playerIDs = Array();
 var TABLE;
+
 function initTABLE()
 {
   TABLE =   '   <table border="2">  '  + 
@@ -20,25 +22,10 @@ function initTABLE()
  '   									<p>  '  + 
  '   										<select name="Player_ID' + countID + '" id="IDSelect' + countID + '" onchange="enableOptions()">  '  + 
  '   										<option value="" disabled selected hidden>Select ID</option>  '  + 
- '   										<option value="260689719">260689719</option>  '  + 
- '   										<option value="455668123">455668123</option>  '  + 
- '   										<option value="12455789">12455789</option>  '  + 
- '   										<option value="189223488">189223488</option>  '  + 
- '   										<option value="260689719">260689719</option>  '  + 
- '   										<option value="455668123">455668123</option>  '  + 
- '   										<option value="12455789">12455789</option>  '  + 
- '   										<option value="189223488">189223488</option>  '  + 
- '   										<option value="260689719">260689719</option>  '  + 
- '   										<option value="455668123">455668123</option>  '  + 
- '   										<option value="12455789">12455789</option>  '  + 
- '   										<option value="189223488">189223488</option>  '  + 
- '   										<option value="260689719">260689719</option>  '  + 
- '   										<option value="455668123">455668123</option>  '  + 
- '   										<option value="12455789">12455789</option>  '  + 
- '   										<option value="189223488">189223488</option>  '  + 
+                                            playerIDs + 
  '   										</select>  '  + 
  '   									</p>   '  + 
-  '                                </div>' +
+ '                                </div>' +
  '   							</div>  '  + 
  '   						</th>  '  + 
  '   					</tr>  '  + 
@@ -294,12 +281,40 @@ function submitTrainInfo()
 
 function generateTables(num)
 {
+  generatePlayersHTML();
   for(i = 0; i < num; i++)
   {
     initTABLE();
     $("#mainDiv").append(TABLE);
     countID++;
   }
+}
+
+function generatePlayersHTML()
+{
+    $.ajax({
+      type: "POST",
+      url: 'playerID.php',
+      dataType: 'json',
+      async: false,
+      data: {functionname: 'getPlayerJson', arguments: ['b7f241acb072f484f0a79ea9889d1d03', '259890691', '283279899']},
+
+      success: function (obj, textstatus) {
+                    if( !('error' in obj) ) {
+                      var result = JSON.parse(obj.result);
+                      for(i = 0; i < result.host.length; i++)
+                      {
+                        if(result.host[i].active == true)
+                          playerIDs[i] = '<option value="' + result.host[i].id + '">' + result.host[i].id + '</option>\n';
+                      }
+                    }
+                    else {
+                        console.log(obj.error);
+                    }
+              }
+    }); 
+
+    
 }
 
 function trainTypeSelect()

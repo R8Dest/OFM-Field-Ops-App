@@ -26,7 +26,7 @@ function getPlayerJson($token, $domainID, $containerID) {
 
 $ch = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/host/v16?container_id='.$containerID.'&domain_id='.$domainID);
+		curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/host/v16/by_container?container_id='.$containerID.'&domain_id='.$domainID);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 		$headers = array();
