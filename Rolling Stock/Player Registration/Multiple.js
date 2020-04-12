@@ -292,12 +292,18 @@ function generateTables(num)
 
 function generatePlayersHTML()
 {
+  //config variable holds the fieldops_config json file
+    var config = readConfigJson().fieldops_config;
+
+    //ajax request to playerID.php which assembles the post variables and uses them to call
+    //getPlayerJson() from functions.php. Makes a synchronus request which sort of defeats the
+    //point of AJAX but this avoids issues with waiting for a response from the server
     $.ajax({
       type: "POST",
       url: 'playerID.php',
       dataType: 'json',
       async: false,
-      data: {functionname: 'getPlayerJson', arguments: ['b7f241acb072f484f0a79ea9889d1d03', '259890691', '283279899']},
+      data: {functionname: 'getPlayerJson', arguments: ['b7f241acb072f484f0a79ea9889d1d03', config.domain_id, config.provisioning_container_id]},
 
       success: function (obj, textstatus) {
                     if( !('error' in obj) ) {
@@ -315,6 +321,22 @@ function generatePlayersHTML()
     }); 
 
     
+}
+
+function readConfigJson()
+{
+  //reads local json file so the domain_id and provisioning_container_id can be used to generate player html
+  var config;
+  $.ajax({
+    url: '/ofm-field-ops-app/fieldops_config.json',
+    dataType: 'json',
+    async: false,
+    success: function(data)
+    {
+      config = data;
+    }
+  });
+  return config;
 }
 
 function trainTypeSelect()
