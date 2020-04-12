@@ -20,7 +20,7 @@ function initTABLE()
  '                                </div>' +
  '                                <div>' +
  '   									<p>  '  + 
- '   										<select name="Player_ID' + countID + '" id="IDSelect' + countID + '" onchange="enableOptions()">  '  + 
+ '   										<select name="Player_ID' + countID + '" id="IDSelect' + countID + '">  '  + 
  '   										<option value="" disabled selected hidden>Select ID</option>  '  + 
                                             playerIDs + 
  '   										</select>  '  + 
