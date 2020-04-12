@@ -7,6 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css"></link>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="Individual.js"></script>
@@ -19,113 +20,12 @@
 		<p>Rail Deployment</p> 
 	</div>
     
-    <form method="get" action="/rail.php">
-		<div class="container-fluid" id="prelimSelectDiv">
-			<div class="row">
-
-				<div class="col-sm-6">
-					<p>Train Type:</p>
-
-				</div>
-
-				<div class="col-sm-2">
-
-					<select name="Train_Type" id="TrainSelect" onchange="trainTypeSelect()">
-					<option value="" disabled selected hidden>...</option>
-					<option value="R62 (A & B)">R62 (A & B)</option>
-					<option value="R62A (A & B)">R62A (A & B)</option>
-					<option value="R68 (A & B)">R68 (A & B)</option>
-					<option value="R68 (B)">R68 (B)</option>
-					<option value="R68A (A & B)">R68A (A & B)</option>
-					<option value="R68A (B)">R68A (B)</option>
-					<option value="R142 (A)">R142 (A)</option>
-					<option value="R142 (B)">R142 (B)</option>
-					<option value="R142A (A)">R142A (A)</option>
-					<option value="R142A (B)">R142A (B)</option>
-					<option value="R143 (B)">R143 (B)</option>
-					<option value="R160 (A)">R160 (A)</option>
-					<option value="R160 (B)">R160 (B)</option>
-					<option value="R188 (A)">R188 (A)</option>
-					<option value="R188 (B & C)">R188 (B & C)</option>
-					<option value="R179 (A)">R179 (A)</option>
-					<option value="R179 (B)">R179 (B)</option>
-					<option value="R211">R211</option>
-					</select>
-					<br><br>
-				</div>
-			</div>
-			<div class="row">
-
-				<div class="col-sm-6">
-					<p>Branded?:</p>
-
-				</div>
-
-				<div class="col-sm-2">
-
-					<select name="BrandedSelect" id="BrandedSelect" disabled>
-						<option value="" disabled selected hidden>...</option>
-						<option value="true">Yes</option>
-						<option value="false">No</option>
-					</select>
-					<br><br>
-				</div>
-			</div>
-			<div class="row">
-
-				<div class="col-sm-6">
-					<p>Train Number:</p>
-
-				</div>
-
-				<div class="col-sm-2">
-
-					<select name="Train_Number" id="TrainNumberSelect" >
-						<option value="" disabled selected hidden>...</option>
-						<option value="T001">T001</option>
-						<option value="T002">T002</option>
-						<option value="T003">T003</option>
-						<option value="T5299">T5229</option>
-						<option value="T5300">T5300</option>
-					</select>
-					<br><br>
-				</div>
-			</div>
-			
-			<div class="row">
-
-				<div class="col-sm-6">
-					<p>Car Number:</p>
-
-				</div>
-
-				<div class="col-sm-2">
-
-					<select name="CarSelect" id="CarSelect" >
-						<option value="" disabled selected hidden>...</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-					</select>
-					<br><br>
-				</div>
-			</div>
-			<button type="button" class="col-sm-6" onclick="submitTrainInfo()">Generate Tables</button>
-		</div>
-
-
-		<hr noshade></hr>
+    <form method="get" action="/Rolling Stock/Player Registration/rail.php">
+		
 
 		<div class="container-fluid" id="mainDiv">
 
-<!-- Using this non-auto generated table for testing-->
-			<table bgcolor="d3d3d3" border="2">
+			<table bgcolor="d3d3d3" border="2" id="individual">
 				<thead>
 					<tr>
 						<th colspan="8">
@@ -135,7 +35,7 @@
 								</div>
 								<div class="col-sm-8">
 									<p>
-										<select name="Player_ID" id="IDSelect" onchange="enableOptions()">
+										<select name="Player_ID" id="IDSelect" required>
 										<option value="" disabled selected hidden>Select ID</option>
 										<option value="260689719">260689719</option>
 										<option value="455668123">455668123</option>
@@ -164,6 +64,12 @@
 				<!--Titles for each column-->
 				<tbody>
 					<tr>
+					    <td>
+					        Train Type
+					    </td>
+					    <td>
+					        Branded?
+					    </td>
 						<td>
 							Train #
 						</td>
@@ -171,10 +77,10 @@
 							Car #
 						</td>
 						<td>
-							Screen Type
+							Location
 						</td>
 						<td>
-							Location
+							Screen Type
 						</td>
 						<td class="d-none d-md-table-cell">
 							Side
@@ -182,19 +88,47 @@
 						<td class="d-none d-md-table-cell">
 							Group #
 						</td>
-						<td class="d-none d-md-table-cell">
-							HW Sku
-						</td>
-						<td class="d-none d-md-table-cell">
-							Serial #
-						</td>
 					</tr>
 
 					<!--Selections for each column-->
 					<tr>
+					    <td>
+							<div>
+								<select name="Train_Type" id="TrainSelect" onchange="trainTypeSelect()" required>
+								<option value="" disabled selected hidden>...</option>
+								<option value="R62 (A & B)">R62 (A & B)</option>
+								<option value="R62A (A & B)">R62A (A & B)</option>
+								<option value="R68 (A & B)">R68 (A & B)</option>
+								<option value="R68 (B)">R68 (B)</option>
+								<option value="R68A (A & B)">R68A (A & B)</option>
+								<option value="R68A (B)">R68A (B)</option>
+								<option value="R142 (A)">R142 (A)</option>
+								<option value="R142 (B)">R142 (B)</option>
+								<option value="R142A (A)">R142A (A)</option>
+								<option value="R142A (B)">R142A (B)</option>
+								<option value="R143 (B)">R143 (B)</option>
+								<option value="R160 (A)">R160 (A)</option>
+								<option value="R160 (B)">R160 (B)</option>
+								<option value="R188 (A)">R188 (A)</option>
+								<option value="R188 (B & C)">R188 (B & C)</option>
+								<option value="R179 (A)">R179 (A)</option>
+								<option value="R179 (B)">R179 (B)</option>
+								<option value="R211">R211</option>
+					            </select>
+								<br><br>
+							</div>
+						</td>
+						<td>
+					        <select name="BrandedSelect" id="BrandedSelect" required>
+								<option value="" disabled selected hidden>...</option>
+								<option value="true">Yes</option>
+								<option value="false">No</option>
+							</select>
+							<br><br>
+						</td>
 						<td>
 							<div>
-								<select name="Train_Number" id="Train#Select" disabled>
+								<select name="Train_Number" id="Train#Select" required>
 								<option value="" disabled selected hidden>...</option>
 								<option value="T001">T001</option>
 								<option value="T002">T002</option>
@@ -207,7 +141,7 @@
 						</td>
 						<td>
 							<div>
-								<select name="Car" id="CarSelect" disabled>
+								<select name="Car" id="CarSelect" required> 
 								<option value="" disabled selected hidden>...</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -224,7 +158,24 @@
 						</td>
 						<td>
 							<div>
-								<select name="Screen_Type" id="TypeSelect" disabled>
+								<select name="Location" id="LocSelect" required>
+								<option value="" disabled selected hidden>...</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								</select>
+								<br><br>
+							</div>
+						</td>
+						<td>
+							<div>
+								<select name="Screen_Type" id="TypeSelect" required>
 								<option value="" disabled selected hidden>...</option>
 								<option value="Square">Square</option>
 								<option value="3SM">3SM</option>
@@ -233,26 +184,9 @@
 								<br><br>
 							</div>
 						</td>
-						<td>
-							<div>
-								<select name="Location" id="LocSelect" disabled>
-								<option value="" disabled selected hidden>...</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								</select>
-								<br><br>
-							</div>
-						</td>
 						<td class="d-none d-md-table-cell">
 							<div>
-								<select name="Side" id="SideSelect" disabled>
+								<select name="Side" id="SideSelect" onchange="updateSubValues()" required>
 								<option value="" disabled selected hidden>...</option>
 								<option value="Left">Left</option>
 								<option value="Right">Right</option>
@@ -262,31 +196,11 @@
 						</td>
 						<td class="d-none d-md-table-cell">
 							<div>
-								<select name="GroupNumber" id="GroupSelect" disabled>
+								<select name="GroupNumber" id="GroupSelect" onchange="updateSubValues()" required>
 								<option value="" disabled selected hidden>...</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
-								</select>
-								<br><br>
-							</div>
-						</td>
-						<td class="d-none d-md-table-cell">
-							<div>
-								<select name="HWSku" id="HWSkuSelect" disabled>
-								<option value="" disabled selected hidden>...</option>
-								<option value="QSMi">QSMi</option>
-								<option value="3SMi">3SMi</option>
-								</select>
-								<br><br>
-							</div>
-						</td>
-						<td class="d-none d-md-table-cell">
-							<div>
-								<select name="SerialNumber" id="SerialSelect" disabled>
-								<option value="" disabled selected hidden>...</option>
-								<option value="AAAA">AAAA</option>
-								<option value="BBBB">BBBB</option>
 								</select>
 								<br><br>
 							</div>
@@ -304,17 +218,11 @@
 						<td class="d-md-none">
 							Group #
 						</td>
-						<td class="d-md-none">
-							HW Sku
-						</td>
-						<td class="d-md-none">
-							Serial #
-						</td>
 					</tr>
 					<tr>
 						<td class="d-md-none">
 							<div>
-								<select name="Side" id="SideSelect" disabled>
+								<select name="Side" id="subSideSelect" onchange="updateRegValues()" required>
 								<option value="" disabled selected hidden>...</option>
 								<option value="Left">Left</option>
 								<option value="Right">Right</option>
@@ -324,31 +232,11 @@
 						</td>
 						<td class="d-md-none">
 							<div>
-								<select name="GroupNumber" id="GroupSelect" disabled>
+								<select name="GroupNumber" id="subGroupSelect" onchange="updateRegValues()" required>
 								<option value="" disabled selected hidden>...</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
-								</select>
-								<br><br>
-							</div>
-						</td>
-						<td class="d-md-none">
-							<div>
-								<select name="HWSku" id="HWSkuSelect" disabled>
-								<option value="" disabled selected hidden>...</option>
-								<option value="QSMi">QSMi</option>
-								<option value="3SMi">3SMi</option>
-								</select>
-								<br><br>
-							</div>
-						</td>
-						<td class="d-md-none">
-							<div>
-								<select name="SerialNumber" id="SerialSelect" disabled>
-								<option value="" disabled selected hidden>...</option>
-								<option value="AAAA">AAAA</option>
-								<option value="BBBB">BBBB</option>
 								</select>
 								<br><br>
 							</div>
