@@ -815,10 +815,36 @@ function addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, 
 	
 }
 
-//STUB
 function getDisplayTypeIDByName($displayUnitType, $token, $domainID){
-	//Function Stub, will give valid response.
-	return 268552897;
+
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/display_unit_type/v6?domain_id='.$domainID);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Authorization: Bearer '.$token;
+	
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	$result = curl_exec($ch);
+	
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);
+
+	$decode_data = json_decode($result);
+	
+	if (is_array($decode_data->display_unit_type)){
+		foreach($decode_data->display_unit_type as $key=>$value){
+			if ($value->name == $displayUnitType){
+					return $value->id;
+				}
+			}
+			return 0;
+		}
+		return 0;
 }
 
 function getDisplayUnitIDByName($displayUnitName, $token, $domainID){
