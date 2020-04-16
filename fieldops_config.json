@@ -38,11 +38,11 @@
     
   "displaytype_translation_table":
     {
-      "null": "Provisioning_Display_Type-Non_Enforced",
-	  "threesm": "Rolling_Stock-3SM-3SMi-Videri-9:16-1080x1920-Normal",
-	  "cove": "Rolling_Stock-Cove-CC48SMi-Videri-16:3-3840x720-Normal",
-	  "square": "Rolling_Stock-Square-QSMi-Videri-1:1-1920x1920-Normal",
+      "null": "default display type",
+	  "threesm": "Testing-3SM-3SMi-9:16-1080x1920",
+	  "cove": "Testing-Cove-CC48SMi-16:3-3840x720",
+	  "square": "Testing-Square-QSMi-1:1-1920x1920",
 	  "testing": "PerformanceTesting-Test_Display_Type-1920x1080-NonEnforced"
     },
-  "not_modified_since": "03-05-20"
+  "not_modified_since": "04-14-20"
 }
