@@ -432,3 +432,24 @@ function trainTypeFormIsValid()
     return true;
   }
 }
+
+
+//Doesn't allow form submission if there are duplicate playerIDs being submitted
+//Allows the user the leave the ID field blank. In this case, rail.php ignores that whole table of data
+function validateForm()
+{
+  var dupeCheck = Array();
+  for(i = 1; i < countID; i++)
+  {
+    var id = $("#IDSelect" + i).val();
+    if(!dupeCheck.includes(id) || id == null)
+      dupeCheck[i-1] = id;
+    else
+    {
+      alert("Duplicate Player IDs detected");
+      return false;
+    }
+  }
+
+  return true;
+}
