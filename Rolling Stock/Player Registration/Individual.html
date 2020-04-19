@@ -37,22 +37,9 @@
 									<p>
 										<select name="Player_ID" id="IDSelect" required>
 										<option value="" disabled selected hidden>Select ID</option>
-										<option value="260689719">260689719</option>
-										<option value="455668123">455668123</option>
-										<option value="12455789">12455789</option>
-										<option value="189223488">189223488</option>
-										<option value="260689719">260689719</option>
-										<option value="455668123">455668123</option>
-										<option value="12455789">12455789</option>
-										<option value="189223488">189223488</option>
-										<option value="260689719">260689719</option>
-										<option value="455668123">455668123</option>
-										<option value="12455789">12455789</option>
-										<option value="189223488">189223488</option>
-										<option value="260689719">260689719</option>
-										<option value="455668123">455668123</option>
-										<option value="12455789">12455789</option>
-										<option value="189223488">189223488</option>
+										    <div id="divPlayerID">
+
+										    </div>
 										</select>
 									</p> 
 								</div>
@@ -76,10 +63,10 @@
 						<td>
 							Car #
 						</td>
-						<td>
+						<td class="d-none d-md-table-cell">
 							Location
 						</td>
-						<td>
+						<td class="d-none d-md-table-cell">
 							Screen Type
 						</td>
 						<td class="d-none d-md-table-cell">
@@ -156,9 +143,9 @@
 								<br><br>
 							</div>
 						</td>
-						<td>
+						<td class="d-none d-md-table-cell">
 							<div>
-								<select name="Location" id="LocSelect" required>
+								<select name="Location" id="LocSelect" onchange="updateSubValues()" required>
 								<option value="" disabled selected hidden>...</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -173,9 +160,9 @@
 								<br><br>
 							</div>
 						</td>
-						<td>
+						<td class="d-none d-md-table-cell">
 							<div>
-								<select name="Screen_Type" id="TypeSelect" required>
+								<select name="Screen_Type" id="TypeSelect" onchange="updateSubValues()" required>
 								<option value="" disabled selected hidden>...</option>
 								<option value="Square">Square</option>
 								<option value="3SM">3SM</option>
@@ -212,6 +199,12 @@
 
 				<tbody>
 					<tr>
+					    <td class="d-md-none">
+							Location
+						</td>
+						<td class="d-md-none">
+							Screen Type
+						</td>
 						<td class="d-md-none">
 							Side
 						</td>
@@ -220,6 +213,34 @@
 						</td>
 					</tr>
 					<tr>
+					    <td class="d-md-none">
+							<div>
+								<select name="Location" id="subLocSelect" onchange="updateRegValues()" required>
+								<option value="" disabled selected hidden>...</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								</select>
+								<br><br>
+							</div>
+						</td>
+						<td class="d-md-none">
+							<div>
+								<select name="Screen_Type" id="subTypeSelect" onchange="updateRegValues()" required>
+								<option value="" disabled selected hidden>...</option>
+								<option value="Square">Square</option>
+								<option value="3SM">3SM</option>
+								<option value="Cove">Cove</option>
+								</select>
+								<br><br>
+							</div>
+						</td>
 						<td class="d-md-none">
 							<div>
 								<select name="Side" id="subSideSelect" onchange="updateRegValues()" required>
@@ -253,7 +274,6 @@
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>

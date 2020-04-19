@@ -10,7 +10,7 @@ else
     $username = $_POST["username"];
 	$password = $_POST["password"];
 	if("$password" == "secret")
-	   header("Location: /OFM-Field-Ops-App/Rolling Stock/selection.html");
+	   header("Location: ./selection.html");
 	   //echo 'SHA-512 (with rounds): ' . crypt("$password", '$6$rounds=1000$YourSaltyStringz$');
     else
         header("Location: /Rolling Stock");
