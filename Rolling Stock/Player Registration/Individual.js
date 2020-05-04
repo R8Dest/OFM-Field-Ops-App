@@ -179,3 +179,9 @@ function readConfigJson()
   });
   return config;
 }
+
+//Function is called at submission of form. Re-enables any disabled fields so they are included in the form. Can be used for error checking if needed
+function submitForm()
+{
+  $("#BrandedSelect").prop("disabled", false);
+}

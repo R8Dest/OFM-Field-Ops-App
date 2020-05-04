@@ -1013,7 +1013,7 @@ function schfiftyFive($side, $location, $groupNumber, $carNumber, $trainNumber, 
 }
 
 
-
+/*
 function apiDemo($side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $agency, $playerID){
 	//Ideally many of the fields in this function will be read in via JSON. however for testing purposes, this function has them hard-coded. 
 	
@@ -1114,7 +1114,7 @@ function apiDemo($side, $location, $groupNumber, $carNumber, $trainNumber, $scre
 			$duContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 8, $domainID);
 		}
 		*/
-		
+		/*
 		//Testing Container
 		$duContainerID = 364223845;
 		
@@ -1155,7 +1155,7 @@ function apiDemo($side, $location, $groupNumber, $carNumber, $trainNumber, $scre
 	
 }
 
-
+*/
 
 
 
