@@ -118,7 +118,7 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
     $location = $playerArray['location'];
     $side = $playerArray['side'];
     $groupNumber = $playerArray['groupNumber'];
-    $agency = 1;
+    $agency = "Agency";
 	
 	
 	
@@ -197,7 +197,7 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 			$loopPolicyName = $config->loop_policy_3sm;
 		}
 		//Testing display unit type
-			if (domainID == 0 || domainID == 259890691){
+			if ($domainID == 0 || $domainID == 259890691){
 					$displayUnitType = $displaytype_translation_table->testing;
 					$loopPolicyName = $config->loop_policy_testing;
 			}
@@ -241,7 +241,7 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 			if ($agencyContainerID == 0){
 				$agencyContainerID = makeFolder($agency, 0, $token, 8, $domainID);
 			}
-			$duContainerID = makeFolder($trainNumber, $parentID, $token, 8, $domainID);
+			$duContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 8, $domainID);
 		}
 		
 		//Make Display Unit
@@ -257,14 +257,14 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 	assignPlayerToDisplayUnit($displayUnitID, $playerID, $token);
 	
 	//Move Player to production folder
-		//Odd logic here, no parent id for player continer vs. DU container?
+		$agency = "Agency2";
 		$playerContainerID = folderExists($agency, $token, $domainID);
 		if ($playerContainerID == 0){
 				$agencyContainerID = folderExists($agency, $token, $domainID);
 				if ($agencyContainerID == 0){
 					$agencyContainerID = makeFolder($agency, 0, $token, 2, $domainID);
 				}
-				$playerContainerID = makeFolder($trainNumber, $parentID, $token, 2, $domainID);
+				$playerContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 2, $domainID);
 		}
 		movePlayer($playerContainerID, $playerID, $token);
 	
@@ -427,6 +427,15 @@ for($i = 1; $i<=19; $i++){
     registerPlayer(${"player" . $i}, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
     }
 }
+
+
+$array = array(
+    "playerID" => 375616668,
+    "screenType" => "cove",
+    "location" => 1,
+    "side" => "left",
+    "groupNumber" => 1);
+registerPlayer($array, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
 
 
 ?>
