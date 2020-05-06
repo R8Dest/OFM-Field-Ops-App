@@ -19,6 +19,7 @@ it recieves the non changing variables
 */
 
 include_once("functions.php");
+$countID = $_POST['countID'];
 $trainType = $_POST['Train_Type'];
 $brandedSelect = $_POST['BrandedSelect'];
 $trainNumber = $_POST['Train_Number'];
@@ -64,13 +65,15 @@ for($i = 1;$i<=19; $i++){
     }
 
     // Calculate how many players there are
-for($i = 1; $i<=19; $i++){
+/*for($i = 1; $i<=19; $i++){
     if(${"playerID" . $i} == 'empty'){
         $length = $i-1;
     break;
     }
 
-}
+
+}*/
+    $length = $countID;
 
     // Create arrays for all the variables in each player where info was entered
 for($i=1; $i <= $length; $i++){
@@ -266,10 +269,36 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 				}
 				$playerContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 2, $domainID);
 		}
+		// Starting clock time in seconds 
+		$start_time = microtime(true); 
+		$a=1; 
+
 		movePlayer($playerContainerID, $playerID, $token);
+
+		// End clock time in seconds 
+		$end_time = microtime(true); 
+
+		// Calculate script execution time 
+		$execution_time = ($end_time - $start_time); 
+
+		echo " Execution time of script = ".$execution_time." sec"; 
+		
 	
 	//Rename Player
+	// Starting clock time in seconds 
+	$start_time = microtime(true); 
+	$a=1; 
+
 	renamePlayer($displayUnitName, $playerID, $token);
+
+	// End clock time in seconds 
+	$end_time = microtime(true); 
+
+	// Calculate script execution time 
+	$execution_time = ($end_time - $start_time); 
+
+	echo " Execution time of script = ".$execution_time." sec"; 
+	
 	
 	
 }
@@ -424,18 +453,31 @@ If the player array is empty, it will not attempt to register that player.
 */
 for($i = 1; $i<=19; $i++){
     if(isset(${"player" . $i})){
-    registerPlayer(${"player" . $i}, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
+    // Starting clock time in seconds 
+	$start_time = microtime(true); 
+	$a=1; 
+
+	registerPlayer(${"player" . $i}, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
+
+	// End clock time in seconds 
+	$end_time = microtime(true); 
+
+	// Calculate script execution time 
+	$execution_time = ($end_time - $start_time); 
+
+	echo "<br>" . $i . " Execution time of script = ".$execution_time." sec" . "<br>"; 
+    
     }
 }
 
 
-$array = array(
+/*$array = array(
     "playerID" => 375616668,
     "screenType" => "cove",
     "location" => 1,
     "side" => "left",
     "groupNumber" => 1);
-registerPlayer($array, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
+registerPlayer($array, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);*/
 
 
 ?>

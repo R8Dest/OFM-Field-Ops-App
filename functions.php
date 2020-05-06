@@ -46,8 +46,8 @@ $ch = curl_init();
 }
 
 function getPlayerJson($token, $domainID, $containerID) {
-echo "getPlayerJson" . "<br>";
 $ch = curl_init();
+
 
 		curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/host/v16/by_container?container_id='.$containerID.'&domain_id='.$domainID);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -368,7 +368,7 @@ function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token) {
 }
 
 function renamePlayer($newName, $playerID, $token) {
-	echo "renamePlayer" . "<br>";
+	//echo "renamePlayer" . "<br>";
 	$playerJson = getSinglePlayerJson($token, $playerID);
 	//$playerJson = getPlayerJson($token, 0, 283279899);
 	$player;
@@ -377,10 +377,10 @@ function renamePlayer($newName, $playerID, $token) {
 	if (is_array($decode_data->host)){
 			
 		foreach($decode_data->host as $key=>$value){
-			//if ($value->id == $playerID){
+			if ($value->id == $playerID){
 				$player = $value;
 				break;
-			//}
+			}
 
 		}
 	}
@@ -397,7 +397,6 @@ function renamePlayer($newName, $playerID, $token) {
 
 	curl_setopt($ch, CURLOPT_POSTFIELDS, "
 	{ 
-	    \"active\": ".$player->active .",
 		\"config_profile_bag_id\": ".$player->config_profile_bag_id .", 
 		\"container_id\": ".$player->container_id .", 
 		\"db_pickup_tm_utc\": \"".$player->db_pickup_tm_utc ."\", 
@@ -427,11 +426,10 @@ function renamePlayer($newName, $playerID, $token) {
 	}
 	curl_close($ch);
 	
-	//echo $result;
+	echo $result;
 }
 
 function movePlayer($newFolderID, $playerID, $token) {
-    echo "movePlayer" . "<br>";
     $playerJson = getSinglePlayerJson($token, $playerID);
 	//$playerJson = getPlayerJson($token, 0, 283279899);
 	$player;
@@ -440,10 +438,10 @@ function movePlayer($newFolderID, $playerID, $token) {
 	if (is_array($decode_data->host)){
 			
 		foreach($decode_data->host as $key=>$value){
-			//if ($value->id == $playerID){
+			if ($value->id == $playerID){
 				$player = $value;
 				break;
-			//}
+			}
 
 		}
 	}
@@ -460,7 +458,6 @@ function movePlayer($newFolderID, $playerID, $token) {
 
 	curl_setopt($ch, CURLOPT_POSTFIELDS, "
 	{ 
-	    \"active\": ".$player->active .",
 		\"config_profile_bag_id\": ".$player->config_profile_bag_id .", 
 		\"container_id\": ".$newFolderID .", 
 		\"db_pickup_tm_utc\": \"".$player->db_pickup_tm_utc ."\", 

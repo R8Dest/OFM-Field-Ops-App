@@ -288,13 +288,15 @@ function generateTables(num)
     $("#mainDiv").append(TABLE);
     countID++;
   }
+
+  //Updates hidden select value so CountID can be passed to rail.php with the form
+  $("#countID").val(countID);
 }
 
 function generatePlayersHTML()
 {
   //config variable holds the fieldops_config json file
     var config = readConfigJson().fieldops_config;
-
     //ajax request to playerID.php which assembles the post variables and uses them to call
     //getPlayerJson() from functions.php. Makes a synchronus request which sort of defeats the
     //point of AJAX but this avoids issues with waiting for a response from the server
@@ -303,7 +305,7 @@ function generatePlayersHTML()
       url: 'playerID.php',
       dataType: 'json',
       async: false,
-      data: {functionname: 'getPlayerJson', arguments: ['b7f241acb072f484f0a79ea9889d1d03', config.domain_id, config.provisioning_container_id]},
+      data: {functionname: 'getPlayerJson', arguments: [config.token, config.domain_id, config.provisioning_container_id]},
 
       success: function (obj, textstatus) {
                     if( !('error' in obj) ) {
@@ -317,7 +319,10 @@ function generatePlayersHTML()
                     else {
                         console.log(obj.error);
                     }
-              }
+              },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
     }); 
 
     
