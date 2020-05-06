@@ -26,12 +26,12 @@ $trainNumber = $_POST['Train_Number'];
 $carSelect = $_POST['CarSelect'];
 $agency = 0;
 //$agency = $_POST['Agency']; This is not implemented on the front end as far as im aware yet
-$length = 0;
+$length = $countID-1;
 
     //Create Player_ID variables for each player entry
-for($i = 1;$i<=19; $i++){
+for($i = 1;$i<=$length; $i++){
     ${"playerID" . $i} = isset($_POST["Player_ID".$i ]) ? $_POST["Player_ID".$i] : 'empty';
-
+		
     }   
 /*
     //Create SerialNumber variables for each player entry
@@ -64,16 +64,19 @@ for($i = 1;$i<=19; $i++){
         
     }
 
-    // Calculate how many players there are
-/*for($i = 1; $i<=19; $i++){
+	// Calculate how many players there are
+	//THIS IS NO LONGER NEEDED. COUNTING IS DONE VIA A VARIABLE 'COUNTID'
+	/*
+for($i = 1; $i<=19; $i++){
     if(${"playerID" . $i} == 'empty'){
         $length = $i-1;
     break;
     }
 
 
-}*/
-    $length = $countID;
+}
+*/
+    
 
     // Create arrays for all the variables in each player where info was entered
 for($i=1; $i <= $length; $i++){
@@ -84,23 +87,23 @@ for($i=1; $i <= $length; $i++){
         'location' => ${"location" . $i},
         'side' => ${"side" . $i},
         'groupNumber' => ${"groupNumber" . $i}
-
+		
     ];
-
+	
 }
 
 
 //for testing purposes, to ensure arrays are getting info from submit form. It works.
 
 
-/*
-var_dump($player1);
-var_dump($player2);
-var_dump($player3);
-var_dump($player4);
-var_dump($player5);
-var_dump($player14);
-*/
+
+//var_dump($player1);
+//var_dump($player2);
+//var_dump($player3);
+//var_dump($player4);
+//var_dump($player5);
+//var_dump($player14);
+
 
 
 /* 
@@ -451,21 +454,22 @@ This for loop will register all players that were filled out on the front end.
 If the player array is empty, it will not attempt to register that player.
 
 */
-for($i = 1; $i<=19; $i++){
-    if(isset(${"player" . $i})){
+for($i = 1; $i<=$length; $i++){
+	
+    if(!in_array("empty", ${"player" . $i})){
     // Starting clock time in seconds 
-	$start_time = microtime(true); 
-	$a=1; 
-
+	//$start_time = microtime(true); 
+	//$a=1; 
+	
 	registerPlayer(${"player" . $i}, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
 
 	// End clock time in seconds 
-	$end_time = microtime(true); 
+	//$end_time = microtime(true); 
 
 	// Calculate script execution time 
-	$execution_time = ($end_time - $start_time); 
+	//$execution_time = ($end_time - $start_time); 
 
-	echo "<br>" . $i . " Execution time of script = ".$execution_time." sec" . "<br>"; 
+	//echo "<br>" . $i . " Execution time of script = ".$execution_time." sec" . "<br>"; 
     
     }
 }
