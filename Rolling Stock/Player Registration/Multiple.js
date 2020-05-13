@@ -2,11 +2,14 @@ $(document).ready(start);
 
 function start() {
     $("#mainDiv").hide();
+    $("#progressBar").hide();
 }
 
-var countID;
+var countID = 0;
+var progress = 1;
 var playerIDs = Array();
 var TABLE;
+
 
 function initTABLE()
 {
@@ -443,6 +446,8 @@ function trainTypeFormIsValid()
 //Allows the user the leave the ID field blank. In this case, rail.php ignores that whole table of data
 function validateForm()
 {
+  //$('body').append('<div class="loading"></div>');
+  
   var dupeCheck = Array();
   for(i = 1; i < countID; i++)
   {
@@ -463,4 +468,7 @@ function validateForm()
 function submitForm()
 {
   $("#BrandedSelect").prop("disabled", false);
+  $("#progressBar").show();
+
 }
+

@@ -19,14 +19,22 @@ it recieves the non changing variables
 */
 
 include_once("functions.php");
-$countID = $_POST['countID'];
-$trainType = $_POST['Train_Type'];
-$brandedSelect = $_POST['BrandedSelect'];
-$trainNumber = $_POST['Train_Number'];
-$carSelect = $_POST['CarSelect'];
+$length = 0;
+if(isset($_POST['countID']) && isset($_POST['Train_Type']) && isset($_POST['BrandedSelect']) && isset($_POST['Train_Number']) && isset($_POST['CarSelect']))
+{
+	$countID = $_POST['countID'];
+	$trainType = $_POST['Train_Type'];
+	$brandedSelect = $_POST['BrandedSelect'];
+	$trainNumber = $_POST['Train_Number'];
+	$carSelect = $_POST['CarSelect'];
+	$length = $countID-1;
+}
+$progress = 1;
+
 $agency = 0;
 //$agency = $_POST['Agency']; This is not implemented on the front end as far as im aware yet
-$length = $countID-1;
+
+
 
     //Create Player_ID variables for each player entry
 for($i = 1;$i<=$length; $i++){
@@ -448,21 +456,34 @@ function apiDemo($side, $location, $groupNumber, $carNumber, $trainNumber, $scre
 }
 
 
+
 /*
 
 This for loop will register all players that were filled out on the front end.
 If the player array is empty, it will not attempt to register that player.
 
 */
-for($i = 1; $i<=$length; $i++){
+set_time_limit(300);
 	
+
+for($i = 1; $i<=$length; $i++){
+
+    $progress++;
+     echo 'Testing' . $i;
+
+    ob_flush(); 
+    flush(); 
+     
+
+
+
     if(!in_array("empty", ${"player" . $i})){
     // Starting clock time in seconds 
 	//$start_time = microtime(true); 
 	//$a=1; 
 	
 	registerPlayer(${"player" . $i}, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
-
+    
 	// End clock time in seconds 
 	//$end_time = microtime(true); 
 
@@ -472,8 +493,18 @@ for($i = 1; $i<=$length; $i++){
 	//echo "<br>" . $i . " Execution time of script = ".$execution_time." sec" . "<br>"; 
     
     }
-}
 
+    
+}
+/*
+if (isset($_COOKIE[$cookie_name])) {
+    unset($_COOKIE[$cookie_name]); 
+    setcookie($cookie_name, null, -1, '/'); 
+    return true;
+} else {
+    return false;
+}
+*/
 
 /*$array = array(
     "playerID" => 375616668,
