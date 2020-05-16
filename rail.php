@@ -19,6 +19,8 @@ it recieves the non changing variables
 */
 
 include_once("functions.php");
+
+initHTML();
 $length = 0;
 if(isset($_POST['countID']) && isset($_POST['Train_Type']) && isset($_POST['BrandedSelect']) && isset($_POST['Train_Number']) && isset($_POST['CarSelect']))
 {
@@ -111,8 +113,61 @@ for($i=1; $i <= $length; $i++){
 //var_dump($player4);
 //var_dump($player5);
 //var_dump($player14);
+function initHTML()
+{
+    echo '<html lang="en">
+    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>OFM Broadsign Deployment</title>
+    </head>';
+
+	echo '<!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>';
+    
+    echo '<body>
+    <div class="jumbotron text-center">
+		<h1 style="color:#660099;"><b>OUTFRONT</b> Media</h1>
+		<p>Rail Deployment</p> 
+	</div>';
+
+    
+    echo '<div class="container-fluid">
+            <div class="row">
+                <div class="col-2">
+                </div>
+                <div class="col-8">
+					<div class="progress">
+					  <div id="progressbar" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<br>
+					<div class="form-group">
+					  <textarea readonly class="form-control rounded-0" id="textarea" rows="15" style="resize: none;"></textarea>
+					</div>
+
+					<button>Copy</button>
+					<button>Return to Player Registration</button>
+                </div>
+                <div class="col-2">
+                </div>
+			</div>
+		</div>';
 
 
+	echo '</body>
+      </html>';
+}
+    
 
 /* 
 
@@ -257,7 +312,7 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 			}
 			$duContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 8, $domainID);
 		}
-		
+	    echoFunction("DU not found, generating DU");
 		//Make Display Unit
 		$displayUnitID = postDisplayUnit($token, $displayUnitName ,$domainID, $duContainerID, $displayUnitTypeID);
 		$displayUnitID = getDisplayUnitIDByName($displayUnitName, $token, $domainID);
@@ -280,35 +335,12 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 				}
 				$playerContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 2, $domainID);
 		}
-		// Starting clock time in seconds 
-		$start_time = microtime(true); 
-		$a=1; 
-
+        echoFunction("Moving Player");
 		movePlayer($playerContainerID, $playerID, $token);
-
-		// End clock time in seconds 
-		$end_time = microtime(true); 
-
-		// Calculate script execution time 
-		$execution_time = ($end_time - $start_time); 
-
-		echo " Execution time of script = ".$execution_time." sec"; 
-		
 	
 	//Rename Player
-	// Starting clock time in seconds 
-	$start_time = microtime(true); 
-	$a=1; 
-
+	echoFunction("Renaming Player");
 	renamePlayer($displayUnitName, $playerID, $token);
-
-	// End clock time in seconds 
-	$end_time = microtime(true); 
-
-	// Calculate script execution time 
-	$execution_time = ($end_time - $start_time); 
-
-	echo " Execution time of script = ".$execution_time." sec"; 
 	
 	
 	
@@ -455,6 +487,13 @@ function apiDemo($side, $location, $groupNumber, $carNumber, $trainNumber, $scre
 	
 }
 
+function echoFunction($text)
+{
+    echo '<script>$("#textarea").append("' . $text . '\n");</script>';
+    ob_flush(); 
+    flush(); 
+}
+
 
 
 /*
@@ -467,15 +506,7 @@ set_time_limit(300);
 	
 
 for($i = 1; $i<=$length; $i++){
-
-    $progress++;
-     echo 'Testing' . $i;
-
-    ob_flush(); 
-    flush(); 
-     
-
-
+    echoFunction("Registering Player " . $i);
 
     if(!in_array("empty", ${"player" . $i})){
     // Starting clock time in seconds 
@@ -483,6 +514,7 @@ for($i = 1; $i<=$length; $i++){
 	//$a=1; 
 	
 	registerPlayer(${"player" . $i}, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
+	echoFunction("Player " . $i . " has been registered");
     
 	// End clock time in seconds 
 	//$end_time = microtime(true); 
@@ -493,18 +525,19 @@ for($i = 1; $i<=$length; $i++){
 	//echo "<br>" . $i . " Execution time of script = ".$execution_time." sec" . "<br>"; 
     
     }
+    else
+    {
+    	echoFunction("Player " . $i . " was not registered, empty player ID");
+    }
+    $progress++;
+     echo '<script>$("#progressbar").css("width", ' . $i * 100 / $length . ' + "%").attr("aria-valuenow", ' . $i * 100 / $length . ');</script>';
+     
 
     
 }
-/*
-if (isset($_COOKIE[$cookie_name])) {
-    unset($_COOKIE[$cookie_name]); 
-    setcookie($cookie_name, null, -1, '/'); 
-    return true;
-} else {
-    return false;
-}
-*/
+echoFunction("Player registration complete");
+//re-enable buttons once for loop is done
+
 
 /*$array = array(
     "playerID" => 375616668,

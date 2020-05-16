@@ -2,7 +2,7 @@
 
 
 function getDisplayUnitJson($token, $domainID, $containerID) {
-echo "getDisplayUnitJson" . "<br>";
+//echo "getDisplayUnitJson" . "<br>";
 $ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/display_unit/v12?container_id='.$containerID.'&domain_id='.$domainID);
@@ -16,6 +16,7 @@ $ch = curl_init();
 		$result = curl_exec($ch);
 
 		if (curl_errno($ch)) {
+			
 			echo 'Error:' . curl_error($ch);
 		}
 		curl_close($ch);		
@@ -23,7 +24,7 @@ $ch = curl_init();
 }
 
 function getSinglePlayerJson($token, $playerID) {
-echo "getSinglePlayerJson" . "<br>";
+//echo "getSinglePlayerJson" . "<br>";
 $ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/host/v16/'.$playerID);
@@ -67,7 +68,7 @@ $ch = curl_init();
 }
 
 function getCriteriaJson($token, $domainID) {
-echo "getCriteriaJson" . "<br>";
+//echo "getCriteriaJson" . "<br>";
 $ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/criteria/v8?domain_id='.$domainID);
@@ -88,7 +89,7 @@ $ch = curl_init();
 }
 
 function getDisplayUnitNameFromJson($json, $displayUnitID) {
-echo "getDisplayUnitNameFromJson" . "<br>";
+//echo "getDisplayUnitNameFromJson" . "<br>";
 $decode_data = json_decode($json);
 		$arCount = 0;
 		$temp = 0;
@@ -107,7 +108,7 @@ $decode_data = json_decode($json);
 }
 
 function getDisplayUnitIDFromJson($json, $name) {
-echo "getDisplayUnitIDFromJson" . "<br>";
+//echo "getDisplayUnitIDFromJson" . "<br>";
 	$decode_data = json_decode($json);
 	$arCount = 0;
 	$temp = 0;
@@ -126,7 +127,7 @@ echo "getDisplayUnitIDFromJson" . "<br>";
 }
 
 function getPlayerNameFromJson($json, $playerID) {
-echo "getPlayerNameFromJson" . "<br>";
+//echo "getPlayerNameFromJson" . "<br>";
 $decode_data = json_decode($json);
 		$arCount = 0;
 		$temp = 0;
@@ -145,7 +146,7 @@ $decode_data = json_decode($json);
 }
 
 function getplayerIDFromJson($json, $name) {
-echo "getplayerIDFromJson" . "<br>";
+//echo "getplayerIDFromJson" . "<br>";
 $decode_data = json_decode($json);
 		$arCount = 0;
 		$temp = 0;
@@ -164,7 +165,7 @@ $decode_data = json_decode($json);
 }
 
 function folderExists($name, $token, $domainID) {
-	echo "folderExists" . "<br>";
+	//echo "folderExists" . "<br>";
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/container/v9?domain_id='.$domainID);
@@ -199,7 +200,7 @@ function folderExists($name, $token, $domainID) {
 }
 
 function makeFolder($name, $parentID, $token, $type, $domainID) {
-	echo "makeFolder" . "<br>";
+	//echo "makeFolder" . "<br>";
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/container/v9/add');
@@ -238,7 +239,7 @@ function makeFolder($name, $token, $domainID) {
 */
 
 function getCriteriaID($name, $token, $domainID) {
-	echo "getCriteriaID" . "<br>";
+	//echo "getCriteriaID" . "<br>";
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/criteria/v8?domain_id='.$domainID);
@@ -273,7 +274,7 @@ function getCriteriaID($name, $token, $domainID) {
 }
 
 function addCriteriaToDisplayUnit($displayUnitID, $criteriaID, $token, $domainID) {
-	echo "addCriteriaToDisplayUnit" . "<br>";
+	//echo "addCriteriaToDisplayUnit" . "<br>";
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/resource_criteria/v7/add');
@@ -304,7 +305,7 @@ function addCriteriaToDisplayUnit($displayUnitID, $criteriaID, $token, $domainID
 }
 
 function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token) {
-	echo "assignPlayerToDisplayUnit" . "<br>";
+	//echo "assignPlayerToDisplayUnit" . "<br>";
 	$playerJson = getPlayerJson($token, 0, 283279899);
 	$player = 0;
 	$trigger = 0;
@@ -425,8 +426,6 @@ function renamePlayer($newName, $playerID, $token) {
 		echo 'Error:' . curl_error($ch);
 	}
 	curl_close($ch);
-	
-	echo $result;
 }
 
 function movePlayer($newFolderID, $playerID, $token) {
@@ -493,7 +492,7 @@ function movePlayer($newFolderID, $playerID, $token) {
 }
 
 function postDisplayUnit($token, $name, $domainID, $containerID, $displayUnitTypeID) {
-echo "postDisplayUnit" . "<br>";
+//echo "postDisplayUnit" . "<br>";
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/display_unit/v12/add');
@@ -531,7 +530,7 @@ echo "postDisplayUnit" . "<br>";
 }
 
 function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $domainID, $token) {
-	echo "assignFullCriteriaToDisplayUnit" . "<br>";
+	//echo "assignFullCriteriaToDisplayUnit" . "<br>";
 	//Slow and ugly... should just get criteria JSON and send that....
 	
 	$sideCriteria = getCriteriaID($side, $token, $domainID);
@@ -554,13 +553,13 @@ function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $grou
 }
 
 function getLoopPolicyIDbyName($loopPolicyName, $domainID, $token){
-	echo "getLoopPolicyIDbyName" . "<br>";
+	//echo "getLoopPolicyIDbyName" . "<br>";
 	//Function Stub, will give valid response.
 	return 270852457;
 }
 
 function createDayPart($displayUnitID, $domainID, $token){
-	echo "createDayPart" . "<br>";
+	//echo "createDayPart" . "<br>";
 	//return 364223831;
 	
 	$ch = curl_init();
@@ -630,7 +629,7 @@ function createDayPart($displayUnitID, $domainID, $token){
 
 //STUB ->Needs loop policy ID
 function createFrame($dayPartID, $domainID, $token){
-	echo "createFrame" . "<br>";
+	//echo "createFrame" . "<br>";
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/skin/v7/add');
@@ -689,7 +688,7 @@ function createFrame($dayPartID, $domainID, $token){
 }
 
 function getFrame($displayUnitID, $domainID, $token){
-	echo "getFrame" . "<br>";
+	//echo "getFrame" . "<br>";
 	//get Day_Part list, filter by parentID (display unit)
 	//get skin list, filter by parentID (day_part)
 	//return matching skin
@@ -778,7 +777,7 @@ function getFrame($displayUnitID, $domainID, $token){
 }
 
 function pushRequest($playerID, $domainID, $token){
-	echo "pushRequest" . "<br>";
+	//echo "pushRequest" . "<br>";
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/host/v16/push_request');
@@ -801,7 +800,7 @@ function pushRequest($playerID, $domainID, $token){
 }
 
 function addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, $token){
-	echo "addLoopPolicyToDisplayUnit" . "<br>";
+	//echo "addLoopPolicyToDisplayUnit" . "<br>";
 
 	$loopPolicyID = getLoopPolicyIDbyName($loopPolicyName, $domainID, $token);
 	
@@ -860,7 +859,7 @@ function addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, 
 }
 
 function getDisplayTypeIDByName($displayUnitType, $token, $domainID){
-	echo "getDisplayTypeIDByName" . "<br>";
+	//echo "getDisplayTypeIDByName" . "<br>";
 
 	$ch = curl_init();
 
@@ -893,13 +892,13 @@ function getDisplayTypeIDByName($displayUnitType, $token, $domainID){
 }
 
 function getDisplayUnitIDByName($displayUnitName, $token, $domainID){
-	echo "getDisplayUnitIDByName" . "<br>";
+	//echo "getDisplayUnitIDByName" . "<br>";
 	$duJson = getDisplayUnitJson ($token, $domainID, 0);
 	return getDisplayUnitIDFromJson($duJson, $displayUnitName);
 }
 
 function getPlayerNameByID($playerID, $domainID, $token){
-	echo "getPlayerNameByID" . "<br>";
+	//echo "getPlayerNameByID" . "<br>";
 	$playerJson = getPlayerJson ($token, $domainID, 0);
 	return getPlayerNameFromJson($playerJson, $playerID);
 }

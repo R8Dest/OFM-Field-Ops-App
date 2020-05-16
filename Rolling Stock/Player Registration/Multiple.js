@@ -2,11 +2,10 @@ $(document).ready(start);
 
 function start() {
     $("#mainDiv").hide();
-    $("#progressBar").hide();
+
 }
 
 var countID = 0;
-var progress = 1;
 var playerIDs = Array();
 var TABLE;
 
@@ -468,7 +467,6 @@ function validateForm()
 function submitForm()
 {
   $("#BrandedSelect").prop("disabled", false);
-  $("#progressBar").show();
 
 }
 
