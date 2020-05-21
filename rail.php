@@ -22,9 +22,16 @@ include_once("functions.php");
 
 initHTML();
 $length = 0;
-if(isset($_POST['countID']) && isset($_POST['Train_Type']) && isset($_POST['BrandedSelect']) && isset($_POST['Train_Number']) && isset($_POST['CarSelect']))
+if(isset($_POST['countID']))
 {
 	$countID = $_POST['countID'];
+}
+else
+{
+	$countID = 1;
+}
+if(isset($_POST['Train_Type']) && isset($_POST['BrandedSelect']) && isset($_POST['Train_Number']) && isset($_POST['CarSelect']))
+{
 	$trainType = $_POST['Train_Type'];
 	$brandedSelect = $_POST['BrandedSelect'];
 	$trainNumber = $_POST['Train_Number'];
@@ -312,7 +319,7 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 			}
 			$duContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 8, $domainID);
 		}
-	    echoFunction("DU not found, generating DU");
+	    echoFunction("    DU not found, generating DU");
 		//Make Display Unit
 		$displayUnitID = postDisplayUnit($token, $displayUnitName ,$domainID, $duContainerID, $displayUnitTypeID);
 		$displayUnitID = getDisplayUnitIDByName($displayUnitName, $token, $domainID);
@@ -335,11 +342,11 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 				}
 				$playerContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 2, $domainID);
 		}
-        echoFunction("Moving Player");
+        echoFunction("    Moving Player");
 		movePlayer($playerContainerID, $playerID, $token);
 	
 	//Rename Player
-	echoFunction("Renaming Player");
+	echoFunction("    Renaming Player");
 	renamePlayer($displayUnitName, $playerID, $token);
 	
 	

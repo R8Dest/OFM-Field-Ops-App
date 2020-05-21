@@ -306,7 +306,8 @@ function addCriteriaToDisplayUnit($displayUnitID, $criteriaID, $token, $domainID
 
 function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token) {
 	//echo "assignPlayerToDisplayUnit" . "<br>";
-	$playerJson = getPlayerJson($token, 0, 283279899);
+	//$playerJson = getPlayerJson($token, 0, 283279899);
+	$playerJson = getSinglePlayerJson($token, $playerID);
 	$player = 0;
 	$trigger = 0;
 	
