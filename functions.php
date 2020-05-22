@@ -308,25 +308,27 @@ function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token, $playerJso
 	//echo "assignPlayerToDisplayUnit" . "<br>";
 	//$playerJson = getPlayerJson($token, 0, 283279899);
 	//$playerJson = getSinglePlayerJson($token, $playerID);
-	$player = 0;
-	$trigger = 0;
+	
+	// $player = 0;
+	// $trigger = 0;
 	
 	$decode_data = json_decode($playerJson);
-	if (is_array($decode_data->host)){
+	$player = $decode_data->host[0];
+	// if (is_array($decode_data->host)){
 			
-		foreach($decode_data->host as $key=>$value){
-			if ($value->id == $playerID){
-				$player = $value;
-				$trigger = 1;
-				break;
-			}
-		}
-	}
+	// 	foreach($decode_data->host as $key=>$value){
+	// 		if ($value->id == $playerID){
+	// 			$player = $value;
+	// 			$trigger = 1;
+	// 			break;
+	// 		}
+	// 	}
+	// }
 	
-	if ($trigger == 0){
-		echo "Error: Unable to assign Player to Display Unit, no such player ID found for player ID: ".$playerID;
-		return 0;
-	}
+	// if ($trigger == 0){
+	// 	echo "Error: Unable to assign Player to Display Unit, no such player ID found for player ID: ".$playerID;
+	// 	return 0;
+	// }
 	
 	$ch = curl_init();
 
@@ -373,19 +375,20 @@ function renamePlayer($newName, $playerID, $token, $playerJson) {
 	//echo "renamePlayer" . "<br>";
 	//$playerJson = getSinglePlayerJson($token, $playerID);
 	//$playerJson = getPlayerJson($token, 0, 283279899);
-	$player;
 	
 	$decode_data = json_decode($playerJson);
-	if (is_array($decode_data->host)){
-			
-		foreach($decode_data->host as $key=>$value){
-			if ($value->id == $playerID){
-				$player = $value;
-				break;
-			}
+	$player = $decode_data->host[0];
 
-		}
-	}
+	// if (is_array($decode_data->host)){
+			
+	// 	foreach($decode_data->host as $key=>$value){
+	// 		if ($value->id == $playerID){
+	// 			$player = $value;
+	// 			break;
+	// 		}
+
+	// 	}
+	// }
 
 	//$player = getSinglePlayerJson($token, 355747462);
 	//$player = $player->host;
@@ -432,19 +435,20 @@ function renamePlayer($newName, $playerID, $token, $playerJson) {
 function movePlayer($newFolderID, $playerID, $token, $playerJson) {
     //$playerJson = getSinglePlayerJson($token, $playerID);
 	//$playerJson = getPlayerJson($token, 0, 283279899);
-	$player;
 	
 	$decode_data = json_decode($playerJson);
-	if (is_array($decode_data->host)){
-			
-		foreach($decode_data->host as $key=>$value){
-			if ($value->id == $playerID){
-				$player = $value;
-				break;
-			}
+	$player = $decode_data->host[0];
 
-		}
-	}
+	// if (is_array($decode_data->host)){
+			
+	// 	foreach($decode_data->host as $key=>$value){
+	// 		if ($value->id == $playerID){
+	// 			$player = $value;
+	// 			break;
+	// 		}
+
+	// 	}
+	// }
 
 	//$player = getSinglePlayerJson($token, 355747462);
 	//$player = $player->host;
