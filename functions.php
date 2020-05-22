@@ -604,8 +604,44 @@ function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $grou
 function getLoopPolicyIDbyName($loopPolicyName, $domainID, $token){
 	//echo "getLoopPolicyIDbyName" . "<br>";
 	//Function Stub, will give valid response.
-	return 270852457;
+	
+	
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/loop_policy/v9?domain_id='.$domainID);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+
+
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Authorization: Bearer: '.$token;
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	$result = curl_exec($ch);
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);
+	
+	$decode_data = json_decode($result);
+	$arCount = 0;
+	$temp = 0;
+	$value = 0;
+				
+	if (is_array($decode_data->loop_policy)){
+		foreach($decode_data->loop_policy as $key=>$value){
+			if ($value->name == $loopPolicyName){
+					return $value->id;
+				}
+			}
+			return 0;
+		}
+	return 0;
+
+	//return 270852457;
 }
+
 
 function createDayPart($displayUnitID, $domainID, $token){
 	//echo "createDayPart" . "<br>";
