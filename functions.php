@@ -304,10 +304,10 @@ function addCriteriaToDisplayUnit($displayUnitID, $criteriaID, $token, $domainID
 	return $result;
 }
 
-function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token) {
+function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token, $playerJson) {
 	//echo "assignPlayerToDisplayUnit" . "<br>";
 	//$playerJson = getPlayerJson($token, 0, 283279899);
-	$playerJson = getSinglePlayerJson($token, $playerID);
+	//$playerJson = getSinglePlayerJson($token, $playerID);
 	$player = 0;
 	$trigger = 0;
 	
@@ -369,9 +369,9 @@ function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token) {
 	
 }
 
-function renamePlayer($newName, $playerID, $token) {
+function renamePlayer($newName, $playerID, $token, $playerJson) {
 	//echo "renamePlayer" . "<br>";
-	$playerJson = getSinglePlayerJson($token, $playerID);
+	//$playerJson = getSinglePlayerJson($token, $playerID);
 	//$playerJson = getPlayerJson($token, 0, 283279899);
 	$player;
 	
@@ -429,8 +429,8 @@ function renamePlayer($newName, $playerID, $token) {
 	curl_close($ch);
 }
 
-function movePlayer($newFolderID, $playerID, $token) {
-    $playerJson = getSinglePlayerJson($token, $playerID);
+function movePlayer($newFolderID, $playerID, $token, $playerJson) {
+    //$playerJson = getSinglePlayerJson($token, $playerID);
 	//$playerJson = getPlayerJson($token, 0, 283279899);
 	$player;
 	
@@ -532,14 +532,58 @@ function postDisplayUnit($token, $name, $domainID, $containerID, $displayUnitTyp
 
 function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $domainID, $token) {
 	//echo "assignFullCriteriaToDisplayUnit" . "<br>";
-	//Slow and ugly... should just get criteria JSON and send that....
+
+	$sideCriteria = 0;
+	$locationCriteria = 0;
+	$groupNumberCriteria = 0;
+	$screenTypeCriteria = 0;
 	
-	$sideCriteria = getCriteriaID($side, $token, $domainID);
-	$locationCriteria = getCriteriaID($location, $token, $domainID);
-	$groupNumberCriteria = getCriteriaID($groupNumber, $token, $domainID);
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/criteria/v8?domain_id='.$domainID);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Authorization: Bearer '.$token;
+	
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	$result = curl_exec($ch);
+	
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);
+
+	$decode_data = json_decode($result);
+	$arCount = 0;
+	$temp = 0;
+	$value = 0;
+				
+	if (is_array($decode_data->criteria)){
+		foreach($decode_data->criteria as $key=>$value){
+			
+			if ($value->name == $side){
+				$sideCriteria->id;
+			}
+			else if ($value->name == $location){
+				$locationCriteria->id;
+			}
+			else if ($value->name == $groupNumber){
+				$groupNumberCriteria->id;
+			}
+			else if ($value->name == $screenType){
+				$screenTypeCriteria->id;
+			}
+		}
+	}
+
+	//$sideCriteria = getCriteriaID($side, $token, $domainID);
+	//$locationCriteria = getCriteriaID($location, $token, $domainID);
+	//$groupNumberCriteria = getCriteriaID($groupNumber, $token, $domainID);
 	//$carNumberCriteria = getCriteriaID($carNumber, $token, $domainID);
 	//$trainNumberCriteria = getCriteriaID($trainNumber, $token, $domainID);
-	$screenTypeCriteria = getCriteriaID($screenType, $token, $domainID);
+	//$screenTypeCriteria = getCriteriaID($screenType, $token, $domainID);
 	//$trainTypeCriteria = getCriteriaID($trainType, $token, $domainID);
 	
 	addCriteriaToDisplayUnit($displayUnitID, $sideCriteria, $token, $domainID);

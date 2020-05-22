@@ -329,8 +329,11 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 	
 	}
 	
+	//GetPlayerJson
+	$playerJson = getSinglePlayerJson($token, $playerID);
+	
 	//Assign Display Unit to Player
-	assignPlayerToDisplayUnit($displayUnitID, $playerID, $token);
+	assignPlayerToDisplayUnit($displayUnitID, $playerID, $token, $playerJson);
 	
 	//Move Player to production folder
 		$agency = "Agency2";
@@ -343,11 +346,11 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 				$playerContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 2, $domainID);
 		}
         echoFunction("    Moving Player");
-		movePlayer($playerContainerID, $playerID, $token);
+		movePlayer($playerContainerID, $playerID, $token, $playerJson);
 	
 	//Rename Player
 	echoFunction("    Renaming Player");
-	renamePlayer($displayUnitName, $playerID, $token);
+	renamePlayer($displayUnitName, $playerID, $token, $playerJson);
 	
 	
 	
