@@ -304,32 +304,11 @@ function addCriteriaToDisplayUnit($displayUnitID, $criteriaID, $token, $domainID
 	return $result;
 }
 
-function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token, $playerJson) {
-	//echo "assignPlayerToDisplayUnit" . "<br>";
-	//$playerJson = getPlayerJson($token, 0, 283279899);
-	//$playerJson = getSinglePlayerJson($token, $playerID);
-	
-	// $player = 0;
-	// $trigger = 0;
-	
+function updatePlayer($displayUnitID, $newFolderID, $newName, $token, $playerJson) {
+
 	$decode_data = json_decode($playerJson);
 	$player = $decode_data->host[0];
-	// if (is_array($decode_data->host)){
-			
-	// 	foreach($decode_data->host as $key=>$value){
-	// 		if ($value->id == $playerID){
-	// 			$player = $value;
-	// 			$trigger = 1;
-	// 			break;
-	// 		}
-	// 	}
-	// }
-	
-	// if ($trigger == 0){
-	// 	echo "Error: Unable to assign Player to Display Unit, no such player ID found for player ID: ".$playerID;
-	// 	return 0;
-	// }
-	
+
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/host/v16');
@@ -339,74 +318,10 @@ function assignPlayerToDisplayUnit($displayUnitID, $playerID, $token, $playerJso
 	curl_setopt($ch, CURLOPT_POSTFIELDS, "
 	{ 
 		\"config_profile_bag_id\": ".$player->config_profile_bag_id .", 
-		\"container_id\": ".$player->container_id .", 
+		\"container_id\": ".$newFolderID .",
 		\"db_pickup_tm_utc\": \"".$player->db_pickup_tm_utc ."\", 
 		\"discovery_status\": ".$player->discovery_status .", 
-		\"display_unit_id\": ".$displayUnitID.", 
-		\"domain_id\": ".$player->domain_id .", 
-		\"geolocation\": \"".$player->geolocation ."\", 
-		\"id\": ".$player->id .", 
-		\"name\": \"".$player->name ."\", 
-		\"nscreens\": ".$player->nscreens .", 
-		\"public_key_fingerprint\": \"".$player->public_key_fingerprint ."\", 
-		\"remote_clear_db_tm_utc\": \"".$player->remote_clear_db_tm_utc ."\", 
-		\"remote_reboot_tm_utc\": \"".$player->remote_reboot_tm_utc ."\", 
-		\"volume\": ".$player->volume ."
-	}");
-	
-	$headers = array();
-	$headers[] = 'Accept: application/json';
-	$headers[] = 'Authorization: Bearer '.$token;
-	$headers[] = 'Content-Type: application/json';
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	
-
-	$result = curl_exec($ch);
-	if (curl_errno($ch)) {
-		echo 'Error:' . curl_error($ch);
-	}
-	curl_close($ch);
-	
-	//echo $result;
-	
-}
-
-function renamePlayer($newName, $playerID, $token, $playerJson) {
-	//echo "renamePlayer" . "<br>";
-	//$playerJson = getSinglePlayerJson($token, $playerID);
-	//$playerJson = getPlayerJson($token, 0, 283279899);
-	
-	$decode_data = json_decode($playerJson);
-	$player = $decode_data->host[0];
-
-	// if (is_array($decode_data->host)){
-			
-	// 	foreach($decode_data->host as $key=>$value){
-	// 		if ($value->id == $playerID){
-	// 			$player = $value;
-	// 			break;
-	// 		}
-
-	// 	}
-	// }
-
-	//$player = getSinglePlayerJson($token, 355747462);
-	//$player = $player->host;
-	
-	
-	$ch = curl_init();
-
-	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/host/v16');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-
-	curl_setopt($ch, CURLOPT_POSTFIELDS, "
-	{ 
-		\"config_profile_bag_id\": ".$player->config_profile_bag_id .", 
-		\"container_id\": ".$player->container_id .", 
-		\"db_pickup_tm_utc\": \"".$player->db_pickup_tm_utc ."\", 
-		\"discovery_status\": ".$player->discovery_status .", 
-		\"display_unit_id\": ".$player->display_unit_id .", 
+		\"display_unit_id\": ".$displayUnitID.",
 		\"domain_id\": ".$player->domain_id .", 
 		\"geolocation\": \"".$player->geolocation ."\", 
 		\"id\": ".$player->id .", 
@@ -430,70 +345,7 @@ function renamePlayer($newName, $playerID, $token, $playerJson) {
 		echo 'Error:' . curl_error($ch);
 	}
 	curl_close($ch);
-}
 
-function movePlayer($newFolderID, $playerID, $token, $playerJson) {
-    //$playerJson = getSinglePlayerJson($token, $playerID);
-	//$playerJson = getPlayerJson($token, 0, 283279899);
-	
-	$decode_data = json_decode($playerJson);
-	$player = $decode_data->host[0];
-
-	// if (is_array($decode_data->host)){
-			
-	// 	foreach($decode_data->host as $key=>$value){
-	// 		if ($value->id == $playerID){
-	// 			$player = $value;
-	// 			break;
-	// 		}
-
-	// 	}
-	// }
-
-	//$player = getSinglePlayerJson($token, 355747462);
-	//$player = $player->host;
-
-	
-	$ch = curl_init();
-
-	curl_setopt($ch, CURLOPT_URL, 'https://api.broadsign.com:10889/rest/host/v16');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-
-	curl_setopt($ch, CURLOPT_POSTFIELDS, "
-	{ 
-		\"config_profile_bag_id\": ".$player->config_profile_bag_id .", 
-		\"container_id\": ".$newFolderID .", 
-		\"db_pickup_tm_utc\": \"".$player->db_pickup_tm_utc ."\", 
-		\"discovery_status\": ".$player->discovery_status .", 
-		\"display_unit_id\": ".$player->display_unit_id .", 
-		\"domain_id\": ".$player->domain_id .", 
-		\"geolocation\": \"".$player->geolocation ."\", 
-		\"id\": ".$player->id .", 
-		\"name\": \"".$player->name ."\", 
-		\"nscreens\": ".$player->nscreens .", 
-		\"public_key_fingerprint\": \"".$player->public_key_fingerprint ."\", 
-		\"remote_clear_db_tm_utc\": \"".$player->remote_clear_db_tm_utc ."\", 
-		\"remote_reboot_tm_utc\": \"".$player->remote_reboot_tm_utc ."\", 
-		\"volume\": ".$player->volume ."
-	}");
-	
-	$headers = array();
-	$headers[] = 'Accept: application/json';
-	$headers[] = 'Authorization: Bearer '.$token;
-	$headers[] = 'Content-Type: application/json';
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	
-
-	$result = curl_exec($ch);
-
-	if (curl_errno($ch)) {
-		echo 'Error:' . curl_error($ch);
-	}
-
-	curl_close($ch);
-	
-	//echo $result;
 }
 
 function postDisplayUnit($token, $name, $domainID, $containerID, $displayUnitTypeID) {

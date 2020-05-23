@@ -333,26 +333,29 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 	$playerJson = getSinglePlayerJson($token, $playerID);
 	
 	//Assign Display Unit to Player
-	assignPlayerToDisplayUnit($displayUnitID, $playerID, $token, $playerJson);
+	//assignPlayerToDisplayUnit($displayUnitID, $token, $playerJson);
 	
 	//Move Player to production folder
-		$agency = "Agency2";
-		$playerContainerID = folderExists($agency, $token, $domainID);
-		if ($playerContainerID == 0){
-				$agencyContainerID = folderExists($agency, $token, $domainID);
-				if ($agencyContainerID == 0){
-					$agencyContainerID = makeFolder($agency, 0, $token, 2, $domainID);
-				}
-				$playerContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 2, $domainID);
-		}
-        echoFunction("    Moving Player");
-		movePlayer($playerContainerID, $playerID, $token, $playerJson);
+	$agency = "Agency2";
+	$playerContainerID = folderExists($agency, $token, $domainID);
+	if ($playerContainerID == 0){
+			$agencyContainerID = folderExists($agency, $token, $domainID);
+			if ($agencyContainerID == 0){
+				$agencyContainerID = makeFolder($agency, 0, $token, 2, $domainID);
+			}
+			$playerContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 2, $domainID);
+	}
+	
+	//echoFunction("    Moving Player");
+	//movePlayer($playerContainerID, $token, $playerJson);
 	
 	//Rename Player
-	echoFunction("    Renaming Player");
-	renamePlayer($displayUnitName, $playerID, $token, $playerJson);
+	//echoFunction("    Renaming Player");
+	//renamePlayer($displayUnitName, $token, $playerJson);
 	
-	
+	//One function to assign player to display unit, move to proper folder, and rename it
+	updatePlayer($displayUnitID, $playerContainerID, $displayUnitName, $token, $playerJson);
+
 	
 }
 
