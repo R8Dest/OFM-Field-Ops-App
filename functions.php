@@ -341,6 +341,7 @@ function updatePlayer($displayUnitID, $newFolderID, $newName, $token, $playerJso
 	
 
 	$result = curl_exec($ch);
+	var_dump(curl_errno($ch));
 	if (curl_errno($ch)) {
 		echo 'Error:' . curl_error($ch);
 	}
@@ -415,21 +416,20 @@ function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $grou
 	$arCount = 0;
 	$temp = 0;
 	$value = 0;
-				
 	if (is_array($decode_data->criteria)){
 		foreach($decode_data->criteria as $key=>$value){
 			
 			if ($value->name == $side){
-				$sideCriteria->id;
+				$sideCriteria = $value->id;
 			}
 			else if ($value->name == $location){
-				$locationCriteria->id;
+				$locationCriteria = $value->id;
 			}
 			else if ($value->name == $groupNumber){
-				$groupNumberCriteria->id;
+				$groupNumberCriteria = $value->id;
 			}
 			else if ($value->name == $screenType){
-				$screenTypeCriteria->id;
+				$screenTypeCriteria = $value->id;
 			}
 		}
 	}
@@ -467,7 +467,7 @@ function getLoopPolicyIDbyName($loopPolicyName, $domainID, $token){
 
 	$headers = array();
 	$headers[] = 'Accept: application/json';
-	$headers[] = 'Authorization: Bearer: '.$token;
+	$headers[] = 'Authorization: Bearer '.$token;
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 	$result = curl_exec($ch);
@@ -480,7 +480,6 @@ function getLoopPolicyIDbyName($loopPolicyName, $domainID, $token){
 	$arCount = 0;
 	$temp = 0;
 	$value = 0;
-				
 	if (is_array($decode_data->loop_policy)){
 		foreach($decode_data->loop_policy as $key=>$value){
 			if ($value->name == $loopPolicyName){

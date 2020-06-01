@@ -22,6 +22,7 @@ function initTABLE()
  '                                </div>' +
  '                                <div>' +
  '   									<p>  '  + 
+ '                                          <input type="text" placeholder="Filter.." id="filterInput' + countID + '" onkeyup="filterFunction(' + countID + ')">' +
  '   										<select name="Player_ID' + countID + '" id="IDSelect' + countID + '">  '  + 
  '   										<option value="" disabled selected hidden>Select ID</option>  '  + 
                                             playerIDs + 
@@ -327,7 +328,12 @@ function generatePlayersHTML()
         }
     }); 
 
-    
+    for(i = 0; i < 1000; i++)
+    {
+      playerIDs[i] = '<option value="' + i + '">' + i + '</option>\n';
+    }
+
+    playerIDs.sort();
 }
 
 function readConfigJson()
@@ -467,6 +473,24 @@ function validateForm()
 function submitForm()
 {
   $("#BrandedSelect").prop("disabled", false);
+
+}
+
+function filterFunction(textBoxNum)
+{
+  var filterText = $("#filterInput" + textBoxNum).val();
+  var filteredOptions = Array();
+  for(i = 0; i < playerIDs.length; i++)
+  {
+
+    if(playerIDs[i].startsWith(filterText, 15))
+    {
+      filteredOptions.push(playerIDs[i]);
+    }
+  }
+  var el = $("#IDSelect" + textBoxNum);
+  el.empty();
+  el.append(filteredOptions);
 
 }
 

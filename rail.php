@@ -159,7 +159,7 @@ function initHTML()
 					</div>
 					<br>
 					<div class="form-group">
-					  <textarea readonly class="form-control rounded-0" id="textarea" rows="15" style="resize: none;"></textarea>
+					  <textarea readonly class="form-control rounded-0" id="textarea" style="resize: none; height: 50vh;"></textarea>
 					</div>
 
 					<button>Copy</button>
@@ -174,7 +174,6 @@ function initHTML()
 	echo '</body>
       </html>';
 }
-    
 
 /* 
 
@@ -188,6 +187,8 @@ However, the actual registration process has not been tested, but all the variab
 
 
 */
+
+
 function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, $carNumber, $agency){	
     $playerID = $playerArray['playerID'];
     $screenType = $playerArray['screenType'];
@@ -244,16 +245,16 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 			$sideCriteria = $criteria_translation_table->side_right;
 		}
 	//groupNumber
-		if (strcasecmp($groupNumber,"01")==0){
+		if (strcasecmp($groupNumber,"1")==0){
 			$groupNumberCriteria = $criteria_translation_table->group_01;
 		}
-		else if (strcasecmp($groupNumber,"02") == 0){
+		else if (strcasecmp($groupNumber,"2") == 0){
 			$groupNumberCriteria = $criteria_translation_table->group_02;
 		}
-		else if (strcasecmp($groupNumber,"03") == 0){
+		else if (strcasecmp($groupNumber,"3") == 0){
 			$groupNumberCriteria = $criteria_translation_table->group_03;
 		}
-		else if (strcasecmp($groupNumber,"04") == 0){
+		else if (strcasecmp($groupNumber,"4") == 0){
 			$groupNumberCriteria = $criteria_translation_table->group_04;
 		}
 	//screenType, display type, loop policy
@@ -278,25 +279,25 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 					$loopPolicyName = $config->loop_policy_testing;
 			}
 	//screenLocation
-		if (strcasecmp($groupNumber,"01")==0 && strcasecmp($screenType, "square") == 0){
+		if (strcasecmp($groupNumber,"1")==0 && strcasecmp($screenType, "square") == 0){
 			$locationCriteria = $criteria_translation_table_Location02->one;
 		}
-		else if (strcasecmp($groupNumber,"02") == 0 && strcasecmp($screenType, "square") == 0){
+		else if (strcasecmp($groupNumber,"2") == 0 && strcasecmp($screenType, "square") == 0){
 			$locationCriteria = $criteria_translation_table_Location02->two;
 		}
-		else if (strcasecmp($groupNumber,"01") == 0){
+		else if (strcasecmp($groupNumber,"1") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->one;
 		}
-		else if (strcasecmp($groupNumber,"02") == 0){
+		else if (strcasecmp($groupNumber,"2") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->two;
 		}
-		else if (strcasecmp($groupNumber,"03") == 0){
+		else if (strcasecmp($groupNumber,"3") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->three;
 		}
-		else if (strcasecmp($groupNumber,"04") == 0){
+		else if (strcasecmp($groupNumber,"4") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->four;
 		}
-		else if (strcasecmp($groupNumber,"05") == 0){
+		else if (strcasecmp($groupNumber,"5") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->five;
 		}
 	
@@ -359,155 +360,15 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 	
 }
 
-function apiDemo($side, $location, $groupNumber, $carNumber, $trainNumber, $screenType, $trainType, $agency, $playerID){
-	//Ideally many of the fields in this function will be read in via JSON. however for testing purposes, this function has them hard-coded. 
-	
-	$domainID = 0;
-	$token = 0;
-	$displayUnitType = "PerformanceTesting-Test_Display_Type-1920x1080-NonEnforced";
-	$sideCriteria = "left";
-	$locationCriteria = "01";
-	$groupNumberCriteria = "01";
-	$carNumberCriteria = 0;
-	$trainNumberCriteria = 0;
-	$screenTypeCriteria = "cove";
-	$trainTypeCriteria = 0;
-	$loopPolicyName = "default loop policy";
-	
-	
-	//Get Domain ID and Token from JSON
-	$domainID = 259890691;
-	$token = "b7f241acb072f484f0a79ea9889d1d03";
-		
-	//Find Criteria Names
-	//Side
-		if (strcasecmp($side,"left")==0){
-			$sideCriteria = "Side_Left";
-		}
-		else if (strcasecmp($side,"right") == 0){
-			$sideCriteria = "Side_Right";
-		}
-	//groupNumber
-		if (strcasecmp($groupNumber,"01")==0){
-			$groupNumberCriteria = "Group_01";
-		}
-		else if (strcasecmp($groupNumber,"02") == 0){
-			$groupNumberCriteria = "Group_02";
-		}
-		else if (strcasecmp($groupNumber,"03") == 0){
-			$groupNumberCriteria = "Group_03";
-		}
-		else if (strcasecmp($groupNumber,"04") == 0){
-			$groupNumberCriteria = "Group_04";
-		}
-	//screenType, display type, loop policy
-		if (strcasecmp($screenType,"cove")==0){
-			$screenTypeCriteria = "Screen_Type_Cove";
-		}
-		else if (strcasecmp($screenType,"square") == 0){
-			$screenTypeCriteria = "Screen_Type_Square";
-		}
-		else if (strcasecmp($screenType,"3sm") == 0){
-			$screenTypeCriteria = "Screen_Type_3SM";
-		}
-		//Testing display unit type
-			if ($domainID == 0 || $domainID == 259890691){
-					$displayUnitType = "PerformanceTesting-Test_Display_Type-1920x1080-NonEnforced";
-					$loopPolicyName = "default loop policy";
-			}
-	//screenLocation
-		if (strcasecmp($groupNumber,"01")==0 && strcasecmp($screenType, "square") == 0){
-			$locationCriteria = "2_Array_01";
-		}
-		else if (strcasecmp($groupNumber,"02") == 0 && strcasecmp($screenType, "square") == 0){
-			$locationCriteria = "2_Array_02";
-		}
-		else if (strcasecmp($groupNumber,"01") == 0){
-			$locationCriteria = "5_Array_01";
-		}
-		else if (strcasecmp($groupNumber,"02") == 0){
-			$locationCriteria = "5_Array_02";
-		}
-		else if (strcasecmp($groupNumber,"03") == 0){
-			$locationCriteria = "5_Array_03";
-		}
-		else if (strcasecmp($groupNumber,"04") == 0){
-			$locationCriteria = "5_Array_04";
-		}
-		else if (strcasecmp($groupNumber,"05") == 0){
-			$locationCriteria = "5_Array_05";
-		}
-	
-	$playerName = getPlayerNameByID($playerID, $domainID, $token);
-	$displayUnitTypeID = getDisplayTypeIDByName($displayUnitType, $token, $domainID);
-	
-	//echo $displayUnitTypeID;
-	
-	$displayUnitName = "".$trainNumber."-".$trainType."-".$carNumber."-".$side."-".$screenType."-".$groupNumber."-".$location;
-	$displayUnitID = getDisplayUnitIDByName($displayUnitName, $token, $domainID);
-	
-	//Does Display Unit Exist?
-	if ($displayUnitID == 0){
-		//find DU container
-		/*
-		$duContainerID = folderExists($trainNumber, $token, $domainID);
-		if ($duContainerID == 0){
-			$agencyContainerID = folderExists($agency, $token, $domainID);
-			if ($agencyContainerID == 0){
-				$agencyContainerID = makeFolder($agency, 0, $token,  8,$domainID);
-			}
-			$duContainerID = makeFolder($trainNumber, $agencyContainerID, $token, 8, $domainID);
-		}
-		*/
-		
-		//Testing Container
-		$duContainerID = 364223845;
-		
-		//Make Display Unit
-		$displayUnitID = postDisplayUnit($token, $displayUnitName ,$domainID, $duContainerID, $displayUnitTypeID);
-		$displayUnitID = getDisplayUnitIDByName($displayUnitName, $token, $domainID);
-
-		addLoopPolicyToDisplayUnit($displayUnitID, $loopPolicyName, $domainID, $token);
-		assignFullCriteriaToDisplayUnit($displayUnitID, $sideCriteria, $locationCriteria, $groupNumberCriteria, $carNumberCriteria, $trainNumberCriteria, $screenTypeCriteria, $trainTypeCriteria, $domainID, $token);
-	}
-	
-	
-	
-	//Assign Display Unit to Player
-	assignPlayerToDisplayUnit($displayUnitID, $playerID, $token);
-	
-	//Move Player to production folder
-		//Odd logic here, no parent id for player continer vs. DU container?
-		$playerContainerID = folderExists($agency, $token, $domainID);
-		if ($playerContainerID == 0){
-				$agencyContainerID = folderExists($agency, $token, $domainID);
-				if ($agencyContainerID == 0){
-					$agencyContainerID = makeFolder($agency, 0, $token,  2, $domainID);
-				}
-				$playerContainerID = makeFolder($trainNumber, 364220699, $token,  2,$domainID);
-		}
-		movePlayer($playerContainerID, $playerID, $token);
-	
-	//Rename Player
-	
-	renamePlayer($displayUnitName, $playerID, $token);
-	
-	//push changes to Player
-	
-	pushRequest($playerID, $domainID, $token);
-	
-	
-	
-}
-
 function echoFunction($text)
 {
-    echo '<script>$("#textarea").append("' . $text . '\n");</script>';
+    echo '<script>var $textarea = $("#textarea")
+                    $textarea.append("' . $text . '\n");
+				    $textarea.scrollTop($textarea[0].scrollHeight);
+		    </script>';
     ob_flush(); 
     flush(); 
 }
-
-
 
 /*
 
