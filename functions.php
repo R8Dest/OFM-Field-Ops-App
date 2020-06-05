@@ -325,7 +325,7 @@ function updatePlayer($displayUnitID, $newFolderID, $newName, $token, $playerJso
 		\"domain_id\": ".$player->domain_id .", 
 		\"geolocation\": \"".$player->geolocation ."\", 
 		\"id\": ".$player->id .", 
-		\"name\": \"".$player->name ."-".$newName ."\", 
+		\"name\": \"".$newName ."-".$player->name ."\", 
 		\"nscreens\": ".$player->nscreens .", 
 		\"public_key_fingerprint\": \"".$player->public_key_fingerprint ."\", 
 		\"remote_clear_db_tm_utc\": \"".$player->remote_clear_db_tm_utc ."\", 
@@ -341,7 +341,7 @@ function updatePlayer($displayUnitID, $newFolderID, $newName, $token, $playerJso
 	
 
 	$result = curl_exec($ch);
-	var_dump(curl_errno($ch));
+	
 	if (curl_errno($ch)) {
 		echo 'Error:' . curl_error($ch);
 	}

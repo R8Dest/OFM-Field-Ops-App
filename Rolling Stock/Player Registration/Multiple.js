@@ -68,15 +68,15 @@ function initTABLE()
  '   							<div>  '  + 
  '   								<select name="Location' + countID + '" id="LocSelect' + countID + '" >  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
- '   								<option value="1">1</option>  '  + 
- '   								<option value="2">2</option>  '  + 
- '   								<option value="3">3</option>  '  + 
- '   								<option value="4">4</option>  '  + 
- '   								<option value="5">5</option>  '  + 
- '   								<option value="6">6</option>  '  + 
- '   								<option value="7">7</option>  '  + 
- '   								<option value="8">8</option>  '  + 
- '   								<option value="9">9</option>  '  + 
+ '   								<option value="01">1</option>  '  + 
+ '   								<option value="02">2</option>  '  + 
+ '   								<option value="03">3</option>  '  + 
+ '   								<option value="04">4</option>  '  + 
+ '   								<option value="05">5</option>  '  + 
+ '   								<option value="06">6</option>  '  + 
+ '   								<option value="07">7</option>  '  + 
+ '   								<option value="08">8</option>  '  + 
+ '   								<option value="09">9</option>  '  + 
  '   								</select>  '  + 
  '   								<br><br>  '  + 
  '   							</div>  '  + 
@@ -95,9 +95,9 @@ function initTABLE()
  '   							<div>  '  + 
  '   								<select name="GroupNumber' + countID + '" id="GroupSelect' + countID + '">  '  + 
  '   								<option value="" disabled selected hidden>...</option>  '  + 
- '   								<option value="1">1</option>  '  + 
- '   								<option value="2">2</option>  '  + 
- '   								<option value="3">3</option>  '  + 
+ '   								<option value="01">1</option>  '  + 
+ '   								<option value="02">2</option>  '  + 
+ '   								<option value="03">3</option>  '  + 
  '   								</select>  '  + 
  '   								<br><br>  '  + 
  '   							</div>  '  + 
@@ -125,7 +125,7 @@ function submitTrainInfo()
 
     generateTables(4);
     //All cars except 142 (A) have 4 square screens
-    if($("#TrainSelect").val() == "R142 (A)")
+    if($("#TrainSelect").val() == "R142(A)")
     {
       for(i = 1; i <= 3; i++)
       {
@@ -133,16 +133,16 @@ function submitTrainInfo()
       }
 
       $("#SideSelect1").val("Left");
-      $("#GroupSelect1").val("1");
-      $("#LocSelect1").val("1");
+      $("#GroupSelect1").val("01");
+      $("#LocSelect1").val("01");
 
       $("#SideSelect2").val("Left");
-      $("#GroupSelect2").val("1");
-      $("#LocSelect2").val("2");
+      $("#GroupSelect2").val("01");
+      $("#LocSelect2").val("02");
 
       $("#SideSelect3").val("Right");
-      $("#GroupSelect3").val("2");
-      $("#LocSelect3").val("1");
+      $("#GroupSelect3").val("02");
+      $("#LocSelect3").val("01");
     }
     else
     {
@@ -152,20 +152,20 @@ function submitTrainInfo()
       }
 
       $("#SideSelect1").val("Left");
-      $("#GroupSelect1").val("1");
-      $("#LocSelect1").val("1");
+      $("#GroupSelect1").val("01");
+      $("#LocSelect1").val("01");
 
       $("#SideSelect2").val("Left");
-      $("#GroupSelect2").val("1");
-      $("#LocSelect2").val("2");
+      $("#GroupSelect2").val("01");
+      $("#LocSelect2").val("02");
 
       $("#SideSelect3").val("Right");
-      $("#GroupSelect3").val("2");
-      $("#LocSelect3").val("1");
+      $("#GroupSelect3").val("02");
+      $("#LocSelect3").val("01");
 
       $("#SideSelect4").val("Right");
-      $("#GroupSelect4").val("2");
-      $("#LocSelect4").val("2");
+      $("#GroupSelect4").val("02");
+      $("#LocSelect4").val("02");
     }
     
     //If the car is branded then there are cove screens as well
@@ -183,7 +183,7 @@ function submitTrainInfo()
       var locCount = 1;
 
       //12 coves for R68 B and R68A B
-      if(trainType == "R68 (B)" || trainType == "R68A (B)")
+      if(trainType == "R68(B)" || trainType == "R68A(B)")
       {
         generateTables(12);
         
@@ -195,7 +195,7 @@ function submitTrainInfo()
           {
             $("#TypeSelect" + i).val("Cove");
             $("#SideSelect" + i).val("Left");
-            $("#GroupSelect" + i).val("1");
+            $("#GroupSelect" + i).val("01");
             $("#LocSelect" + i).val(locCount);
             if(i == 10)
               locCount = 1;
@@ -206,13 +206,13 @@ function submitTrainInfo()
           {
             $("#TypeSelect" + i).val("Cove");
             $("#SideSelect" + i).val("Right");
-            $("#GroupSelect" + i).val("2");
+            $("#GroupSelect" + i).val("02");
             $("#LocSelect" + i).val(locCount);
             locCount++;
           }
         }
       }
-      else if(trainType == "R160 (A)")
+      else if(trainType == "R160(A)")
       {
         generateTables(15);
         for(i = 5; i <= 19; i++)
@@ -221,7 +221,7 @@ function submitTrainInfo()
           {
             $("#TypeSelect" + i).val("Cove");
             $("#SideSelect" + i).val("Left");
-            $("#GroupSelect" + i).val("1");
+            $("#GroupSelect" + i).val("01");
             $("#LocSelect" + i).val(locCount);
 
             if(i == 9)
@@ -233,7 +233,7 @@ function submitTrainInfo()
           {
             $("#TypeSelect" + i).val("Cove");
             $("#SideSelect" + i).val("Left");
-            $("#GroupSelect" + i).val("2");
+            $("#GroupSelect" + i).val("02");
             $("#LocSelect" + i).val(locCount);
 
             if(i == 14)
@@ -245,7 +245,7 @@ function submitTrainInfo()
           {
             $("#TypeSelect" + i).val("Cove");
             $("#SideSelect" + i).val("Right");
-            $("#GroupSelect" + i).val("3");
+            $("#GroupSelect" + i).val("03");
             $("#LocSelect" + i).val(locCount);
             locCount++;
           }
@@ -260,7 +260,7 @@ function submitTrainInfo()
           {
             $("#TypeSelect" + i).val("Cove");
             $("#SideSelect" + i).val("Left");
-            $("#GroupSelect" + i).val("1");
+            $("#GroupSelect" + i).val("01");
             $("#LocSelect" + i).val(locCount);
 
             if(i == 9)
@@ -272,7 +272,7 @@ function submitTrainInfo()
           {
             $("#TypeSelect" + i).val("Cove");
             $("#SideSelect" + i).val("Right");
-            $("#GroupSelect" + i).val("2");
+            $("#GroupSelect" + i).val("02");
             $("#LocSelect" + i).val(locCount);
             locCount++;
           }
@@ -328,10 +328,10 @@ function generatePlayersHTML()
         }
     }); 
 
-    for(i = 0; i < 1000; i++)
-    {
-      playerIDs[i] = '<option value="' + i + '">' + i + '</option>\n';
-    }
+    // for(i = 0; i < 1000; i++)
+    // {
+    //   playerIDs[i] = '<option value="' + i + '">' + i + '</option>\n';
+    // }
 
     playerIDs.sort();
 }
@@ -358,55 +358,55 @@ function trainTypeSelect()
   {
     
   
-    case "R62 (A & B)":
+    case "R62(A&B)":
       disableBranded("false");
       break;    
-    case "R62A (A & B)":
+    case "R62A(A&B)":
       disableBranded("false");
       break;    
-    case "R68 (A & B)":
+    case "R68(A&B)":
       disableBranded("false");
       break;
-    case "R68 (B)":
+    case "R68(B)":
       disableBranded("true");
       break;
-    case "R68A (A & B)":
+    case "R68A(A&B)":
       disableBranded("false");
       break;
-    case "R68A (B)":
+    case "R68A(B)":
       disableBranded("true");
       break;
-    case "R142 (A)":
+    case "R142(A)":
       disableBranded("false");
       break;    
-    case "R142 (B)":
+    case "R142(B)":
       enableBranded();
       break;
-    case "R142A (A)":
+    case "R142A(A)":
       disableBranded("false");
       break;    
-    case "R142A (B)":
+    case "R142A(B)":
       enableBranded();
       break;
-    case "R143 (B)":
+    case "R143(B)":
       enableBranded();
       break;    
-    case "R160 (A)":
+    case "R160(A)":
       enableBranded();
       break;    
-    case "R160 (B)":
+    case "R160(B)":
       disableBranded("false");
       break;
-    case "R188 (A)":
+    case "R188(A)":
       disableBranded("false");
       break;  
-    case "R188 (B & C)":
+    case "R188(B&C)":
       enableBranded();
       break;
-    case "R179 (A)":
+    case "R179(A)":
       disableBranded("false");
       break;     
-    case "R179 (B)":
+    case "R179(B)":
       disableBranded("false");
       break;
     case "R211":

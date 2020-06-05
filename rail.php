@@ -194,7 +194,7 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
     $screenType = $playerArray['screenType'];
     $location = $playerArray['location'];
     $side = $playerArray['side'];
-    $groupNumber = $playerArray['groupNumber'];
+    $groupNumber = 'G' . $playerArray['groupNumber'];
     $agency = "Agency";
 	
 	
