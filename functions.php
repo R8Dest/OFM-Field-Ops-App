@@ -342,6 +342,11 @@ function updatePlayer($displayUnitID, $newFolderID, $newName, $token, $playerJso
 
 	$result = curl_exec($ch);
 	
+	if (strpos($result, 'Operation failed') !== false) 
+	{
+		echoFunction("API Error");
+	}
+	
 	if (curl_errno($ch)) {
 		echo 'Error:' . curl_error($ch);
 	}
