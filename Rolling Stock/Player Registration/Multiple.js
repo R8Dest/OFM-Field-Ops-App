@@ -2,7 +2,14 @@ $(document).ready(start);
 
 function start() {
     $("#mainDiv").hide();
+    
 
+    var config = readConfigJson().agency_list.agencies;
+    var $ob = $("#AgencySelect");
+    for(i = 0; i < config.length; i++)
+    {
+      $ob.append("<option value='" + config[i] + "'>" + config[i] + "</option>");
+    }
 }
 
 var countID = 0;
@@ -24,7 +31,7 @@ function initTABLE()
  '   									<p>  '  + 
  '                                          <input type="text" placeholder="Filter.." id="filterInput' + countID + '" onkeyup="filterFunction(' + countID + ')">' +
  '   										<select name="Player_ID' + countID + '" id="IDSelect' + countID + '">  '  + 
- '   										<option value="" disabled selected hidden>Select ID</option>  '  + 
+ '   										<option value="" selected>Select ID</option>  '  + 
                                             playerIDs + 
  '   										</select>  '  + 
  '   									</p>   '  + 
@@ -435,8 +442,9 @@ function trainTypeFormIsValid()
   branded = $("#BrandedSelect").val();
   trainNumber = $("#TrainNumberSelect").val();
   carNumber = $("#CarSelect").val();
+  agency = $("#AgencySelect").val();
 
-  if(type == null || branded == null || trainNumber == null || carNumber == null)
+  if(type == null || branded == null || trainNumber == "" || carNumber == "" || agency == null)
   {
     return false;
   }
@@ -457,7 +465,7 @@ function validateForm()
   for(i = 1; i < countID; i++)
   {
     var id = $("#IDSelect" + i).val();
-    if(!dupeCheck.includes(id) || id == null)
+    if(!dupeCheck.includes(id) || id == "")
       dupeCheck[i-1] = id;
     else
     {
@@ -473,7 +481,13 @@ function validateForm()
 function submitForm()
 {
   $("#BrandedSelect").prop("disabled", false);
-
+  
+  for(i = 1; i <= countID; i++)
+  {
+    var $IDSelect = $("#IDSelect" + i);
+    if($IDSelect.val() == "")
+      $("#IDSelect" + i).prop("disabled", true);
+  }
 }
 
 function filterFunction(textBoxNum)
@@ -482,8 +496,7 @@ function filterFunction(textBoxNum)
   var filteredOptions = Array();
   for(i = 0; i < playerIDs.length; i++)
   {
-
-    if(playerIDs[i].startsWith(filterText, 15))
+    if((playerIDs[i]) && (playerIDs[i].startsWith(filterText, 15)))
     {
       filteredOptions.push(playerIDs[i]);
     }

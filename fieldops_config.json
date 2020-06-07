@@ -10,6 +10,11 @@
       "loop_policy_testing":"default loop policy"
     },
 
+    "agency_list":
+    {
+    	"agencies": ["Agency", "Agency2", "Agency3"]
+    },
+
   "criteria_translation_table":
     {
       "group_01": "Group_01",
@@ -44,5 +49,5 @@
 	  "square": "Testing-Square-QSMi-1:1-1920x1920",
 	  "testing": "PerformanceTesting-Test_Display_Type-1920x1080-NonEnforced"
     },
-  "not_modified_since": "04-14-20"
+  "not_modified_since": "06-06-20"
 }

@@ -22,6 +22,36 @@
     
     <form method="post" action="/OFM-Field-Ops-App/rail.php" onSubmit="return validateForm()">
 		<div class="container-fluid" id="prelimSelectDiv">
+		    <div class="row">
+
+				<div class="col-sm-3">
+					<p>Agency:</p>
+
+				</div>
+
+				<div class="col-sm-2">
+					<select name="AgencySelect" id="AgencySelect">
+					    <option value="" disabled selected hidden>...</option>
+					</select>
+					<br><br>
+				</div>
+			</div>
+		    <div class="row">
+
+				<div class="col-sm-3">
+					<p>Train Number:</p>
+
+				</div>
+
+				<div class="col-sm-2">
+                    <label for="Train_Number">Train Number must start with 'T' followed by 4 digits</label>
+                    <br>
+					<input type="text" name="Train_Number" id="TrainNumberSelect" pattern="[Tt]{1}[0-9]{4}"></input>
+					
+					<br><br>
+				</div>
+			</div>
+
 			<div class="row">
 
 				<div class="col-sm-3">
@@ -72,26 +102,7 @@
 					<br><br>
 				</div>
 			</div>
-			<div class="row">
-
-				<div class="col-sm-3">
-					<p>Train Number:</p>
-
-				</div>
-
-				<div class="col-sm-2">
-
-					<select name="Train_Number" id="TrainNumberSelect" >
-						<option value="" disabled selected hidden>...</option>
-						<option value="T-001">T-001</option>
-						<option value="T-002">T-002</option>
-						<option value="T-003">T-003</option>
-						<option value="T-5299">T-5229</option>
-						<option value="T-5300">T-5300</option>
-					</select>
-					<br><br>
-				</div>
-			</div>
+			
 			
 			<div class="row">
 
@@ -100,20 +111,11 @@
 
 				</div>
 
-				<div class="col-sm-2">
-
-					<select name="CarSelect" id="CarSelect" >
-					    <option value="" disabled selected hidden>...</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-					</select>
+				<div class="col-sm-3">
+                    <label for="CarSelect">Car Number must be exactly 4 digits</label>
+                    <br>
+					<input type="text" name="CarSelect" id="CarSelect" pattern="[0-9]{4}"></input>
+					
 					<br><br>
 				</div>
 			</div>

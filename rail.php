@@ -30,19 +30,17 @@ else
 {
 	$countID = 1;
 }
-if(isset($_POST['Train_Type']) && isset($_POST['BrandedSelect']) && isset($_POST['Train_Number']) && isset($_POST['CarSelect']))
+if(isset($_POST['Train_Type']) && isset($_POST['BrandedSelect']) && isset($_POST['Train_Number']) && isset($_POST['CarSelect']) &&
+    isset($_POST['AgencySelect']))
 {
 	$trainType = $_POST['Train_Type'];
 	$brandedSelect = $_POST['BrandedSelect'];
 	$trainNumber = $_POST['Train_Number'];
 	$carSelect = $_POST['CarSelect'];
 	$length = $countID-1;
+	$agency = $_POST['AgencySelect'];
 }
 $progress = 1;
-
-$agency = 0;
-//$agency = $_POST['Agency']; This is not implemented on the front end as far as im aware yet
-
 
 
     //Create Player_ID variables for each player entry
@@ -195,7 +193,6 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
     $location = $playerArray['location'];
     $side = $playerArray['side'];
     $groupNumber = 'G' . $playerArray['groupNumber'];
-    $agency = "Agency";
 	
 	
 	
@@ -383,21 +380,9 @@ for($i = 1; $i<=$length; $i++){
     echoFunction("Registering Player " . $i);
 
     if(!in_array("empty", ${"player" . $i})){
-    // Starting clock time in seconds 
-	//$start_time = microtime(true); 
-	//$a=1; 
 	
 	registerPlayer(${"player" . $i}, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
-	echoFunction("Player " . $i . " has been registered");
-    
-	// End clock time in seconds 
-	//$end_time = microtime(true); 
-
-	// Calculate script execution time 
-	//$execution_time = ($end_time - $start_time); 
-
-	//echo "<br>" . $i . " Execution time of script = ".$execution_time." sec" . "<br>"; 
-    
+	echoFunction("Player " . $i . " has been registered");  
     }
     else
     {
