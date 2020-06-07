@@ -10,10 +10,11 @@ function start() {
 
 }
 
+//A dedicated page to submit a single player was deemed unnecessary
 function GenerateHTMLIndividual()
 {
     //generate HTML
-    window.location.href = "\Player Registration/Individual.html";
+    //window.location.href = "\Player Registration/Individual.html";
 }
 
 function GenerateHTMLMultiple()
