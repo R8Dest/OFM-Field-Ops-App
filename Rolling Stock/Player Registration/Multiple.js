@@ -480,14 +480,22 @@ function validateForm()
 //Function is called at submission of form. Re-enables any disabled fields so they are included in the form. Can be used for error checking if needed
 function submitForm()
 {
+  //re-enables branded select so it's included in the form
   $("#BrandedSelect").prop("disabled", false);
   
+  //disables IDSelect fields with blank values so they are not included in the form
   for(i = 1; i <= countID; i++)
   {
     var $IDSelect = $("#IDSelect" + i);
     if($IDSelect.val() == "")
       $("#IDSelect" + i).prop("disabled", true);
   }
+  
+  /*
+  //drops leading zeros from the car number input field
+  var $CarNumber = $("#CarSelect");
+  $CarNumber.val(parseInt($CarNumber.val()));
+  */
 }
 
 function filterFunction(textBoxNum)
