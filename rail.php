@@ -8,12 +8,10 @@ it recieves the non changing variables
  - Train_Number
  - CarSelect
  first, and assigns them to their respective variables.
-
  The rest of the data from each individual player is arranged into an array
  up to 19 total players. 
  So, the first player's info would be stored in an array called $player1
  the second player's info would be stored in an array called $player2, and so on.
-
  NOTE: these arrays do not contain the 'non-changing variables' mentioned at the top.
  It could be modified to do so, but currently is not set up that way.
 */
@@ -52,7 +50,6 @@ for($i = 1;$i<=$length; $i++){
     //Create SerialNumber variables for each player entry
 for($i = 1;$i<=15; $i++){
     ${"serialNumber" . $i} = isset($_POST["SerialNumber".$i ]) ? $_POST["SerialNumber".$i] : 'empty';
-
     }
 */
     //Create Screen_Type variables for each player entry
@@ -87,8 +84,6 @@ for($i = 1; $i<=19; $i++){
         $length = $i-1;
     break;
     }
-
-
 }
 */
     
@@ -125,17 +120,14 @@ function initHTML()
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <title>OFM Broadsign Deployment</title>
     </head>';
 
 	echo '<!-- Optional JavaScript -->
-
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>';
@@ -146,6 +138,15 @@ function initHTML()
 		<p>Rail Deployment</p> 
 	</div>';
 
+
+	echo '<script type="text/JavaScript">  
+	function copy() {
+		let textarea = document.getElementById("textarea");
+		textarea.select();
+		document.execCommand("copy");
+	  }
+	</script>' 
+;
     
     echo '<div class="container-fluid">
             <div class="row">
@@ -159,9 +160,9 @@ function initHTML()
 					<div class="form-group">
 					  <textarea readonly class="form-control rounded-0" id="textarea" style="resize: none; height: 50vh;"></textarea>
 					</div>
-
-					<button>Copy</button>
-					<button>Return to Player Registration</button>
+					<button onclick="copy()">Copy</button>
+					
+					<a href="https://www.example.com"><button>Return to Player Registration</button></a>
                 </div>
                 <div class="col-2">
                 </div>
@@ -174,16 +175,10 @@ function initHTML()
 }
 
 /* 
-
 This function is Matt's function from functions.php, slightly altered to get the variables correctly.
-
 Agency is not defined on the front end file that I have. So randomly assigned to 1, for testing.
-
 All the passing of the variables from the front end to the function is working properly.
-
 However, the actual registration process has not been tested, but all the variables are there.
-
-
 */
 
 
@@ -368,10 +363,8 @@ function echoFunction($text)
 }
 
 /*
-
 This for loop will register all players that were filled out on the front end.
 If the player array is empty, it will not attempt to register that player.
-
 */
 set_time_limit(300);
 	
