@@ -130,10 +130,11 @@ function submitTrainInfo()
       '<h1 style="color:#660099;"><b>SQUARES</b></h1>' +
      '</div>');
 
-    generateTables(4);
+    
     //All cars except 142 (A) have 4 square screens
     if($("#TrainSelect").val() == "R142(A)")
     {
+      generateTables(3);
       for(i = 1; i <= 3; i++)
       {
         $("#TypeSelect" + i).val("Square");
@@ -153,6 +154,7 @@ function submitTrainInfo()
     }
     else
     {
+      generateTables(4);
       for(i = 1; i <= 4; i++)
       {
         $("#TypeSelect" + i).val("Square");
@@ -514,4 +516,3 @@ function filterFunction(textBoxNum)
   el.append(filteredOptions);
 
 }
-
