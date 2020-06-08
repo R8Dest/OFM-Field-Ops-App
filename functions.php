@@ -1,6 +1,5 @@
 <?php
 
-
 function getDisplayUnitJson($token, $domainID, $containerID) {
 //echo "getDisplayUnitJson" . "<br>";
 $ch = curl_init();
@@ -344,13 +343,15 @@ function updatePlayer($displayUnitID, $newFolderID, $newName, $token, $playerJso
 	
 	if (strpos($result, 'Operation failed') !== false) 
 	{
-		echoFunction("API Error");
+		return false;
 	}
 	
 	if (curl_errno($ch)) {
 		echo 'Error:' . curl_error($ch);
 	}
 	curl_close($ch);
+
+	return true;
 
 }
 
@@ -435,6 +436,7 @@ function assignFullCriteriaToDisplayUnit($displayUnitID, $side, $location, $grou
 			}
 			else if ($value->name == $screenType){
 				$screenTypeCriteria = $value->id;
+				
 			}
 		}
 	}

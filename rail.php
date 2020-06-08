@@ -39,6 +39,7 @@ if(isset($_POST['Train_Type']) && isset($_POST['BrandedSelect']) && isset($_POST
 	$agency = $_POST['AgencySelect'];
 }
 $progress = 1;
+$apiErrorFlag = false;
 
 
     //Create Player_ID variables for each player entry
@@ -101,10 +102,6 @@ for($i=1; $i <= $length; $i++){
     ];
 	
 }
-
-
-//for testing purposes, to ensure arrays are getting info from submit form. It works.
-
 
 
 //var_dump($player1);
@@ -237,16 +234,16 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 			$sideCriteria = $criteria_translation_table->side_right;
 		}
 	//groupNumber
-		if (strcasecmp($groupNumber,"1")==0){
+		if (strcasecmp($groupNumber,"G01")==0){
 			$groupNumberCriteria = $criteria_translation_table->group_01;
 		}
-		else if (strcasecmp($groupNumber,"2") == 0){
+		else if (strcasecmp($groupNumber,"G02") == 0){
 			$groupNumberCriteria = $criteria_translation_table->group_02;
 		}
-		else if (strcasecmp($groupNumber,"3") == 0){
+		else if (strcasecmp($groupNumber,"G03") == 0){
 			$groupNumberCriteria = $criteria_translation_table->group_03;
 		}
-		else if (strcasecmp($groupNumber,"4") == 0){
+		else if (strcasecmp($groupNumber,"G04") == 0){
 			$groupNumberCriteria = $criteria_translation_table->group_04;
 		}
 	//screenType, display type, loop policy
@@ -271,25 +268,25 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 					$loopPolicyName = $config->loop_policy_testing;
 			}
 	//screenLocation
-		if (strcasecmp($groupNumber,"1")==0 && strcasecmp($screenType, "square") == 0){
+		if (strcasecmp($location,"01")==0 && strcasecmp($screenType, "square") == 0){
 			$locationCriteria = $criteria_translation_table_Location02->one;
 		}
-		else if (strcasecmp($groupNumber,"2") == 0 && strcasecmp($screenType, "square") == 0){
+		else if (strcasecmp($location,"02") == 0 && strcasecmp($screenType, "square") == 0){
 			$locationCriteria = $criteria_translation_table_Location02->two;
 		}
-		else if (strcasecmp($groupNumber,"1") == 0){
+		else if (strcasecmp($location,"01") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->one;
 		}
-		else if (strcasecmp($groupNumber,"2") == 0){
+		else if (strcasecmp($location,"02") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->two;
 		}
-		else if (strcasecmp($groupNumber,"3") == 0){
+		else if (strcasecmp($location,"03") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->three;
 		}
-		else if (strcasecmp($groupNumber,"4") == 0){
+		else if (strcasecmp($location,"04") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->four;
 		}
-		else if (strcasecmp($groupNumber,"5") == 0){
+		else if (strcasecmp($location,"05") == 0){
 			$locationCriteria = $criteria_translation_table_Location05->five;
 		}
 	
@@ -347,8 +344,7 @@ function registerPlayer($playerArray, $trainType, $brandedSelect, $trainNumber, 
 	//renamePlayer($displayUnitName, $token, $playerJson);
 	
 	//One function to assign player to display unit, move to proper folder, and rename it
-	updatePlayer($displayUnitID, $playerContainerID, $displayUnitName, $token, $playerJson);
-
+	$apiErrorFlag = updatePlayer($displayUnitID, $playerContainerID, $displayUnitName, $token, $playerJson);
 	
 }
 
@@ -373,9 +369,16 @@ for($i = 1; $i<=$length; $i++){
     echoFunction("Registering Player " . $i);
 
     if(!in_array("empty", ${"player" . $i})){
-	
-	registerPlayer(${"player" . $i}, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
-	echoFunction("Player " . $i . " has been registered");  
+
+		registerPlayer(${"player" . $i}, $trainType, $brandedSelect, $trainNumber, $carSelect, $agency);
+		if($apiErrorFlag)
+		{
+			echoFunction("Player " . $i . " has been registered");
+		}
+		else
+		{
+		    echoFunction("Player " . $i . " has not been registered, API Error");
+		}
     }
     else
     {
